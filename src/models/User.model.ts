@@ -26,25 +26,21 @@ const userSchema = new Schema(
     },
     is_active: {
       type: Boolean,
+      default: false,
     },
     is_superuser: {
       type: Boolean,
       description:
         "Designates that this user has all permissions without explicitly assigning them.",
+      default: false,
     },
     is_staff: {
       type: Boolean,
+      default: false,
     },
-    // created_at: {
-    //   type: Date,
-    //   default: Date.now,
-    // },
-    // updated_at: {
-    //   type: Date,
-    //   default: Date.now,
-    // },
     last_login: {
       type: Date,
+      default: null,
     },
   },
   {

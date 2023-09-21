@@ -1,3 +1,3 @@
 export * from "./user.middleware";
 export * from "./common.middleware";
-export * from "./auth.middelware";
+export * from "./auth.middleware";

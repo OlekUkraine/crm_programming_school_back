@@ -1,52 +1,70 @@
 import { model, Schema } from "mongoose";
 
-const orderSchema = new Schema({
-  // _id: {
-  //   type: Types.ObjectId,
-  // },
-  age: {
-    type: Number,
+import { ECourse, ECourseFormat, ECourseType } from "../enums";
+
+const orderSchema = new Schema(
+  {
+    age: {
+      type: Number,
+      required: true,
+    },
+    already_paid: {
+      type: Number,
+      default: null,
+    },
+    course: {
+      type: String,
+      enum: ECourse,
+      required: true,
+    },
+    course_format: {
+      type: String,
+      enum: ECourseFormat,
+      required: true,
+    },
+    course_type: {
+      type: String,
+      enum: ECourseType,
+      required: true,
+    },
+    email: {
+      type: String,
+      trim: true,
+      default: null,
+    },
+    msg: {
+      type: String,
+      default: null,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: String,
+      default: null,
+    },
+    status: {
+      type: String,
+      default: null,
+    },
+    sum: {
+      type: String,
+      default: null,
+    },
+    surname: {
+      type: String,
+      default: null,
+    },
+    utm: {
+      type: String,
+      default: null,
+    },
   },
-  already_paid: {
-    type: Number,
+  {
+    versionKey: false,
+    timestamps: true,
   },
-  course: {
-    type: String,
-  },
-  course_format: {
-    type: String,
-  },
-  course_type: {
-    type: String,
-  },
-  created_at: {
-    type: String,
-  },
-  email: {
-    type: String,
-    trim: true,
-  },
-  msg: {
-    type: String,
-  },
-  name: {
-    type: String,
-  },
-  phone: {
-    type: String,
-  },
-  status: {
-    type: String,
-  },
-  sum: {
-    type: String,
-  },
-  surname: {
-    type: String,
-  },
-  utm: {
-    type: String,
-  },
-});
+);
 
 export const Order = model("orders", orderSchema);

@@ -1,16 +1,33 @@
 import { Router } from "express";
 
 import { orderController } from "../controllers";
-import { authMiddleware } from "../middlewares";
+import { authMiddleware, commonMiddleware } from "../middlewares";
 
 const router = Router();
 
+router.get("/list", authMiddleware.checkAccessToken, orderController.getAll);
+
+router.post("/add", authMiddleware.checkAccessToken, orderController.addOrder);
+
 router.get(
-  "/list",
-  // commonMiddleware.isBodyValid(UserValidator.login),
-  // userMiddleware.isExist<ICredentials>("email"),
+  "/:orderId",
   authMiddleware.checkAccessToken,
-  orderController.getAll,
+  commonMiddleware.isIdValid("orderId"),
+  orderController.findById,
+);
+
+router.put(
+  "/update/:orderId",
+  authMiddleware.checkAccessToken,
+  commonMiddleware.isIdValid("orderId"),
+  orderController.updateById,
+);
+
+router.delete(
+  "/delete/:orderId",
+  authMiddleware.checkAccessToken,
+  commonMiddleware.isIdValid("orderId"),
+  orderController.deleteById,
 );
 
 export const orderRouter = router;

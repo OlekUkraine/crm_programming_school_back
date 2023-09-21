@@ -1,7 +1,11 @@
 import { Router } from "express";
 
 import { authController } from "../controllers";
-import { commonMiddleware, userMiddleware } from "../middlewares";
+import {
+  authMiddleware,
+  commonMiddleware,
+  userMiddleware,
+} from "../middlewares";
 import { ICredentials } from "../types";
 import { UserValidator } from "../validators";
 
@@ -15,10 +19,10 @@ router.post(
 );
 
 router.post(
-  "/register",
-  commonMiddleware.isBodyValid(UserValidator.create),
-  userMiddleware.findAndThrow("email"),
-  authController.register,
+  "/activate",
+  commonMiddleware.isBodyValid(UserValidator.register),
+  authMiddleware.checkActionToken,
+  authController.activate,
 );
 
 export const authRouter = router;

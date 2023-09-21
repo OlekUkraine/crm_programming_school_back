@@ -19,8 +19,8 @@ class AuthMiddleware {
       }
 
       const payload = tokenService.checkToken(accessToken, ETokenType.Access);
-
       const entity = await Token.findOne({ accessToken });
+
       if (!entity) {
         throw new ApiError("Token not valid", 401);
       }
@@ -45,8 +45,8 @@ class AuthMiddleware {
       }
 
       const payload = tokenService.checkToken(refreshToken, ETokenType.Refresh);
-
       const entity = await Token.findOne({ refreshToken });
+
       if (!entity) {
         throw new ApiError("Token not valid", 401);
       }
@@ -72,7 +72,6 @@ class AuthMiddleware {
           actionToken,
           tokenType,
         );
-
         const tokenFromDB = await Action.findOne({ actionToken });
 
         if (!tokenFromDB) {
@@ -80,7 +79,6 @@ class AuthMiddleware {
         }
 
         req.res.locals = { jwtPayload, tokenFromDB };
-
         next();
       } catch (e) {
         next(e);

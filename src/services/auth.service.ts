@@ -1,40 +1,39 @@
-import { EActionTokenTypes, EEmailActions } from "../enums";
+import { EActionTokenTypes } from "../enums";
 import { ApiError } from "../errors";
 import { Action, Token, User } from "../models";
-import { ICredentials, ITokenPair, IUser } from "../types";
-import { mailService } from "./email.service";
+import {
+  ICredentials,
+  IRegisterUser,
+  ITokenPair,
+  ITokenPayload,
+  IUser,
+} from "../types";
 import { passwordService } from "./password.service";
 import { tokenService } from "./token.service";
 
 class AuthService {
-  public async register(data: IUser): Promise<void> {
+  public async activate(
+    data: IRegisterUser,
+    jwtPayload: ITokenPayload,
+  ): Promise<void> {
     try {
       const hashedPassword = await passwordService.hash(data.password);
 
-      const user = await User.create({ ...data, password: hashedPassword });
-
-      const actionToken = tokenService.generationActionToken(
-        { _id: user._id, email: user.email },
-        EActionTokenTypes.Activate,
-      );
-
-      if (data.email !== "admin@gmail.com") {
-        await Promise.all([
-          Action.create({
-            actionToken,
-            tokenType: EActionTokenTypes.Activate,
-            _userId: user._id,
-          }),
-          mailService.sendMail(data.email, EEmailActions.WELCOME, {
-            name: data.name,
-            actionToken,
-          }),
-        ]);
-      }
+      await Promise.all([
+        User.updateOne(
+          { _id: jwtPayload._id },
+          { password: hashedPassword, is_active: true },
+        ),
+        Action.deleteMany({
+          _userId: jwtPayload._id,
+          tokenType: EActionTokenTypes.Activate,
+        }),
+      ]);
     } catch (e) {
       throw new ApiError(e.message, e.status);
     }
   }
+
   public async login(
     credentials: ICredentials,
     user: IUser,

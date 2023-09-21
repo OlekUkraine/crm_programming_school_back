@@ -19,9 +19,8 @@ class UsersMiddleware {
 
         if (!user) {
           if (req.body[field] === "admin@gmail.com") {
-            return (res.locals.user = await createAdminService.create(
-              req.body,
-            ));
+            res.locals.user = await createAdminService.create(req.body);
+            return;
           }
           throw new ApiError("User not found", 422);
         }
@@ -53,6 +52,21 @@ class UsersMiddleware {
         next(e);
       }
     };
+  }
+
+  public async isSuperuser(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { _id: userId } = req.res.locals.tokenPayload;
+      const user = await User.findOne({ _id: userId });
+
+      if (!user.is_superuser) {
+        throw new ApiError("You do not have access!", 403);
+      }
+
+      next();
+    } catch (e) {
+      next(e);
+    }
   }
 }
 export const userMiddleware = new UsersMiddleware();

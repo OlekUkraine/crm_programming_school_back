@@ -1,0 +1,437 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Swagger CRM Programming school",
+    "description": "This is documentation for the CRM Programming school server. Here you will learn how to use this server.",
+    "contact": {
+      "email": "devalexhor@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "paths": {
+      "/auth/login": {
+        "post": {
+          "tags": ["auth"],
+          "summary": "Sign in to your account",
+          "responses": {
+            "200": {
+              "description": "Return pair tokens",
+              "schema": {
+                "$ref": "#/definitions/PairToken"
+              }
+            }
+          }
+        }
+      },
+    "/auth/activate": {
+      "post": {
+        "tags": ["auth"],
+        "summary": "Activate the account and add a password.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return pair tokens",
+            "schema": {
+              "$ref": "#/definitions/PairToken"
+            }
+          }
+        }
+      }
+    },
+    "/orders/list": {
+      "get": {
+        "tags": ["orders"],
+        "summary": "Get list orders with pagination.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a list of orders with pagination.",
+            "schema": {
+              "properties": {
+                "page": {
+                  "type": "integer"
+                },
+                "prePage": {
+                  "type": "integer"
+                },
+                "itemCount": {
+                  "type": "integer"
+                },
+                "itemFound": {
+                  "type": "integer"
+                },
+                "entities": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "$ref": "#/definitions/Order"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/{orderId}": {
+      "get": {
+        "tags": ["orders"],
+        "summary": "Get one order by id",
+        "operationId": "getOrder",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "ID of order to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the order by id.",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          }
+        }
+      }
+    },
+    "/orders/add": {
+      "post": {
+        "tags": ["orders"],
+        "summary": "Add new order",
+        "responses": {
+          "200": {
+            "description": "Returns the order id.",
+            "schema": {
+              "$ref": "#/definitions/Id"
+            }
+          }
+        }
+      }
+    },
+    "/orders/update/{id}": {
+      "put": {
+        "tags": ["orders"],
+        "summary": "Update one order by id",
+        "operationId": "updateOrder",
+        "responses": {
+          "200": {
+            "description": "Returns the updated order.",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          }
+        }
+      }
+    },
+    "/orders/delete/{id}": {
+      "delete": {
+        "tags": ["orders"],
+        "summary": "Delete order by id",
+        "operationId": "deleteOrder",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/users/list": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Get list users with pagination.",
+        "responses": {
+          "200": {
+            "description": "Returns a list of users with pagination.",
+            "schema": {
+              "properties": {
+                "page": {
+                  "type": "integer"
+                },
+                "prePage": {
+                  "type": "integer"
+                },
+                "itemCount": {
+                  "type": "integer"
+                },
+                "itemFound": {
+                  "type": "integer"
+                },
+                "entities": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "$ref": "#/definitions/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Get one user by id",
+        "operationId": "getUser",
+        "responses": {
+          "200": {
+            "description": "Returns the user by id.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/users/add": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Add new user",
+        "responses": {
+          "200": {
+            "description": "Returns the user id.",
+            "schema": {
+              "$ref": "#/definitions/Id"
+            }
+          }
+        }
+      }
+    },
+    "/users/activate": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Get an action token to activate the user",
+        "responses": {
+          "200": {
+            "description": "Returns the action token to activate."
+          }
+        }
+      }
+    },
+    "/users/update/{id}": {
+      "put": {
+        "tags": ["users"],
+        "summary": "Update one user by id",
+        "operationId": "updateUser",
+        "responses": {
+          "200": {
+            "description": "Returns the updated user.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/users/delete/{id}": {
+      "delete": {
+        "tags": ["users"],
+        "summary": "Delete user by id",
+        "operationId": "deleteUser",
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "surname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "is_active": {
+          "type": "boolean",
+          "default": false
+        },
+        "is_superuser": {
+          "type": "boolean",
+          "default": false
+        },
+        "is_staff": {
+          "type": "boolean",
+          "default": false
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "last_login": {
+          "type": "string"
+        }
+      }
+    },
+    "AddUser": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "surname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "Order": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "surname": {
+          "type": "string",
+          "default": null
+        },
+        "email": {
+          "type": "string",
+          "default": null
+        },
+        "phone": {
+          "type": "string",
+          "default": null
+        },
+        "age": {
+          "type": "integer"
+        },
+        "course": {
+          "type": "string",
+          "enum": [
+            "QACX",
+            "FS",
+            "PCX",
+            "FE",
+            "JSCX",
+            "JCX"
+          ]
+        },
+        "course_format": {
+          "type": "string",
+          "enum": [
+            "static",
+            "online"
+          ]
+        },
+        "course_type": {
+          "type": "string",
+          "enum": [
+            "vip",
+            "pro",
+            "incubator",
+            "minimal"
+          ]
+        },
+        "sum": {
+          "type": "string",
+          "default": null
+        },
+        "already_paid": {
+          "type": "string",
+          "default": null
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "update_at": {
+          "type": "string"
+        },
+        "utm": {
+          "type": "string"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "default": null
+        }
+      }
+    },
+    "Pagination": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer"
+        },
+        "prePage": {
+          "type": "integer"
+        },
+        "itemCount": {
+          "type": "integer"
+        },
+        "itemFound": {
+          "type": "integer"
+        },
+        "entities": {
+          "type": "array",
+          "$ref": "#/definitions/User"
+        }
+      }
+    },
+    "PairToken": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string"
+        },
+        "refreshToken": {
+          "type": "string"
+        }
+      }
+    },
+    "Id": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

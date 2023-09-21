@@ -18,8 +18,5 @@ export const configs = {
   LIFETIME_REFRESH_TOKEN: process.env.LIFETIME_REFRESH_TOKEN,
   LIFETIME_ACTIVATE_TOKEN: process.env.LIFETIME_ACTIVATE_TOKEN,
 
-  NO_REPLY_EMAIL: process.env.NO_REPLY_EMAIL,
-  NO_REPLY_PASS: process.env.NO_REPLY_PASS,
-
   FRONT_URL: process.env.FRONT_URL,
 };

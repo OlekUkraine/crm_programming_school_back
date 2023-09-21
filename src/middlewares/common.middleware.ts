@@ -13,6 +13,7 @@ class CommonMiddleware {
         if (!isObjectIdOrHexString(id)) {
           throw new ApiError(`Is ${field} not valid`, 400);
         }
+
         next();
       } catch (e) {
         next(e);

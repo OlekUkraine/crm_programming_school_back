@@ -13,6 +13,9 @@ export class UserValidator {
     name: this.firstName.required(),
     surname: this.surname.required(),
     email: this.email.required(),
+  });
+
+  static register = Joi.object({
     password: this.password.required(),
   });
 

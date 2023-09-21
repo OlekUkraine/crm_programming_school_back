@@ -1,30 +1,52 @@
+import { EObjectType } from "../enums";
 import { ApiError } from "../errors";
 import { Order } from "../models";
-import { IOrder, IQuery } from "../types";
+import { IOrder, IPagination, IQuery } from "../types";
+import { paginationService } from "./pagination.service";
 
 class OrderService {
   public async getAll(): Promise<IOrder[]> {
     return await Order.find();
   }
 
-  public async findAllWithPagination(query: IQuery): Promise<IOrder[]> {
-    try {
-      const { page = 1, limit = 25, sortedBy, ...searchObject } = query;
-      const skip = +limit * (+page - 1);
+  public async findAllWithPagination(
+    query: IQuery,
+  ): Promise<IPagination<IOrder>> {
+    return await paginationService.addPaginationForList<IOrder>(
+      query,
+      EObjectType.Order,
+    );
+  }
 
-      const orders = await Order.find(searchObject)
-        .sort(sortedBy ?? { _id: -1 })
-        .limit(+limit)
-        .skip(skip);
+  public async addOrder(data: IOrder) {
+    return await Order.create(data);
+  }
 
-      if (!orders.length) {
-        throw new ApiError("Not find any orders", 404);
-      }
+  public async findById(id: string): Promise<IOrder> {
+    return await this.getOneByIdOrThrow(id);
+  }
 
-      return orders;
-    } catch (e) {
-      throw new ApiError(e.message, e.status);
+  public async updateById(id: string, data: Partial<IOrder>): Promise<IOrder> {
+    await this.getOneByIdOrThrow(id);
+
+    return await Order.findOneAndUpdate(
+      { _id: id },
+      { ...data },
+      { returnDocument: "after" },
+    );
+  }
+
+  public async deleteById(id: string): Promise<void> {
+    await Order.deleteOne({ _id: id });
+  }
+
+  private async getOneByIdOrThrow(orderId: string): Promise<IOrder> {
+    const order = await Order.findById(orderId);
+
+    if (!order) {
+      throw new ApiError("Order not found", 422);
     }
+    return order;
   }
 }
 

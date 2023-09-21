@@ -1,7 +1,6 @@
-import { Types } from "mongoose";
+import { Document } from "mongoose";
 
-export interface IOrder {
-  _id?: Types.ObjectId;
+export interface IOrder extends Document {
   name?: string;
   surname?: string;
   email?: string;
@@ -13,7 +12,10 @@ export interface IOrder {
   sum?: string;
   already_paid?: number;
   created_at?: string;
+  update_at?: string;
   utm?: string;
   msg?: string;
   status?: string;
 }
+
+export type ICreateOrder = Record<"created_at" | "update_at", IOrder>;
