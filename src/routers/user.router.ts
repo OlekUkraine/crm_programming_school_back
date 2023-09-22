@@ -16,7 +16,7 @@ router.post(
   userMiddleware.isSuperuser,
   commonMiddleware.isBodyValid(UserValidator.create),
   userMiddleware.findAndThrow("email"),
-  userController.addUser,
+  userController.create,
 );
 
 router.get(

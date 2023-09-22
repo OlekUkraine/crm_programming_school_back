@@ -6,8 +6,7 @@ export class UserValidator {
   static firstName = Joi.string().min(3).max(30).trim();
   static surname = Joi.string().min(3).max(30).trim();
   static email = Joi.string().lowercase().regex(regexConstants.EMAIL).trim();
-  // static password = Joi.string().regex(regexConstants.PASSWORD).trim();
-  static password = Joi.string().trim();
+  static password = Joi.string().min(4).trim();
 
   static create = Joi.object({
     name: this.firstName.required(),

@@ -1,4 +1,3 @@
-import { userAdmin } from "../constants";
 import { User } from "../models";
 import { ICredentials, IUser } from "../types";
 import { passwordService } from "./password.service";
@@ -8,8 +7,12 @@ class CreateAdminService {
     const hashedPassword = await passwordService.hash(credential.password);
 
     return await User.create({
-      ...userAdmin,
+      email: credential.email,
       password: hashedPassword,
+      is_active: true,
+      is_superuser: true,
+      is_staff: true,
+      last_login: new Date().toISOString(),
     });
   }
 }

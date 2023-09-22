@@ -1,3 +1,4 @@
+import { configs } from "../configs";
 import { EActionTokenTypes, EObjectType } from "../enums";
 import { ApiError } from "../errors";
 import { User } from "../models";
@@ -6,7 +7,7 @@ import { paginationService } from "./pagination.service";
 import { tokenService } from "./token.service";
 
 class UserService {
-  public async addUser(data: IAddUser): Promise<IUser> {
+  public async create(data: IAddUser): Promise<IUser> {
     try {
       return await User.create(data);
     } catch (e) {
@@ -16,10 +17,12 @@ class UserService {
 
   public async getActivationLink(data: IUserActivate): Promise<string> {
     try {
-      return tokenService.generationActionToken(
+      const token = tokenService.generationActionToken(
         { _id: data._id, email: data.email },
         EActionTokenTypes.Activate,
       );
+
+      return `${configs.FRONT_URL}/${token}`;
     } catch (e) {
       throw new ApiError(e.message, e.status);
     }
