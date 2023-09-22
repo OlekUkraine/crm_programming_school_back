@@ -13,6 +13,15 @@
         "post": {
           "tags": ["auth"],
           "summary": "Sign in to your account",
+          "parameters": [
+            {
+              "name": "data",
+              "in": "body",
+              "schema": {
+                "$ref": "#/definitions/login"
+              }
+            }
+          ],
           "responses": {
             "200": {
               "description": "Return pair tokens",
@@ -31,9 +40,17 @@
           {
             "in": "header",
             "name": "Authorization",
+            "description": "use action token",
             "required": true,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/authActivate"
             }
           }
         ],
@@ -56,6 +73,28 @@
             "in": "header",
             "name": "Authorization",
             "required": true,
+            "description": "Access token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
             "schema": {
               "type": "string"
             }
@@ -98,6 +137,15 @@
         "operationId": "getOrder",
         "parameters": [
           {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "description": "Access token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "orderId",
             "in": "path",
             "description": "ID of order to return",
@@ -121,6 +169,24 @@
       "post": {
         "tags": ["orders"],
         "summary": "Add new order",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "description": "Access token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "order",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Returns the order id.",
@@ -136,6 +202,33 @@
         "tags": ["orders"],
         "summary": "Update one order by id",
         "operationId": "updateOrder",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "description": "Access token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "ID of order to update",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "order",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Returns the updated order.",
@@ -151,6 +244,26 @@
         "tags": ["orders"],
         "summary": "Delete order by id",
         "operationId": "deleteOrder",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "description": "Access token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "ID of order to delete",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": ""
@@ -162,6 +275,38 @@
       "get": {
         "tags": ["users"],
         "summary": "Get list users with pagination.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "description": "Access token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Returns a list of users with pagination.",
@@ -197,6 +342,26 @@
         "tags": ["users"],
         "summary": "Get one user by id",
         "operationId": "getUser",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "description": "Access token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of user to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Returns the user by id.",
@@ -211,6 +376,24 @@
       "post": {
         "tags": ["users"],
         "summary": "Add new user",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "description": "Access token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AddUser"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Returns the user id.",
@@ -225,6 +408,17 @@
       "post": {
         "tags": ["users"],
         "summary": "Get an action token to activate the user",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "description": "Access token",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Returns the action token to activate."
@@ -237,6 +431,33 @@
         "tags": ["users"],
         "summary": "Update one user by id",
         "operationId": "updateUser",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "description": "Access token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of user update",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Returns the updated user.",
@@ -252,6 +473,26 @@
         "tags": ["users"],
         "summary": "Delete user by id",
         "operationId": "deleteUser",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "description": "Access token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of user delete",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "204": {
             "description": ""
@@ -429,6 +670,25 @@
       "type": "object",
       "properties": {
         "_id": {
+          "type": "string"
+        }
+      }
+    },
+    "login": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "authActivate": {
+      "type": "object",
+      "properties": {
+        "password": {
           "type": "string"
         }
       }

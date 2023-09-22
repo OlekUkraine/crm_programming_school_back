@@ -27,25 +27,22 @@ class PaginationService {
           objectModel = User;
       }
 
-      const [entities, ordersTotalCount, ordersSearchCount] = await Promise.all(
-        [
-          objectModel
-            .find(searchObject)
-            .sort(sortedBy ?? { _id: -1 })
-            .limit(+limit)
-            .skip(skip)
-            .exec(),
-          objectModel.count(),
-          objectModel.countDocuments(searchObject),
-        ],
-      );
+      const [data, ordersTotalCount] = await Promise.all([
+        objectModel
+          .find(searchObject)
+          .sort(sortedBy ?? { _id: -1 })
+          .limit(+limit)
+          .skip(skip)
+          .exec(),
+        objectModel.count(),
+      ]);
 
       return {
         page: +page,
         prePage: +limit,
         itemCount: ordersTotalCount,
-        itemFound: ordersSearchCount,
-        entities: entities as T[],
+        itemFound: data.length,
+        entities: data as T[],
       };
     } catch (e) {
       throw new ApiError(e.message, e.status);

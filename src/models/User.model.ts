@@ -23,6 +23,7 @@ const userSchema = new Schema(
     password: {
       type: String,
       minLength: 4,
+      select: false,
     },
     is_active: {
       type: Boolean,

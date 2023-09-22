@@ -20,12 +20,13 @@ class UsersMiddleware {
         if (!user) {
           if (req.body[field] === "admin@gmail.com") {
             res.locals.user = await createAdminService.create(req.body);
-            return;
+          } else {
+            throw new ApiError("User not found", 422);
           }
-          throw new ApiError("User not found", 422);
+        } else {
+          res.locals.user = user;
         }
 
-        res.locals.user = user;
         next();
       } catch (e) {
         next(e);
@@ -41,7 +42,7 @@ class UsersMiddleware {
     ): Promise<void> => {
       try {
         const user = await User.findOne({ [field]: req.body[field] }).select(
-          "password",
+          "+password",
         );
         if (user) {
           throw new ApiError("User with this email already exist", 409);

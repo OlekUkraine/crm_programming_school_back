@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 
 import { authService } from "../services";
+import { ITokenPair } from "../types";
 
 class AuthController {
   public async activate(
@@ -22,10 +23,9 @@ class AuthController {
     req: Request,
     res: Response,
     next: NextFunction,
-  ): Promise<Response<void>> {
+  ): Promise<Response<ITokenPair>> {
     try {
       const tokenPair = await authService.login(req.body, req.res.locals.user);
-
       return res.json({ ...tokenPair });
     } catch (e) {
       next(e);

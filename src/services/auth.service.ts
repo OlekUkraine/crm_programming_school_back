@@ -12,28 +12,6 @@ import { passwordService } from "./password.service";
 import { tokenService } from "./token.service";
 
 class AuthService {
-  public async activate(
-    data: IRegisterUser,
-    jwtPayload: ITokenPayload,
-  ): Promise<void> {
-    try {
-      const hashedPassword = await passwordService.hash(data.password);
-
-      await Promise.all([
-        User.updateOne(
-          { _id: jwtPayload._id },
-          { password: hashedPassword, is_active: true },
-        ),
-        Action.deleteMany({
-          _userId: jwtPayload._id,
-          tokenType: EActionTokenTypes.Activate,
-        }),
-      ]);
-    } catch (e) {
-      throw new ApiError(e.message, e.status);
-    }
-  }
-
   public async login(
     credentials: ICredentials,
     user: IUser,
@@ -53,12 +31,36 @@ class AuthService {
         email: user.email,
       });
 
+      await User.updateOne({ last_login: new Date().toISOString() });
+
       await Token.create({
         ...tokensPair,
         _userId: user._id,
       });
 
       return { ...tokensPair };
+    } catch (e) {
+      throw new ApiError(e.message, e.status);
+    }
+  }
+
+  public async activate(
+    data: IRegisterUser,
+    jwtPayload: ITokenPayload,
+  ): Promise<void> {
+    try {
+      const hashedPassword = await passwordService.hash(data.password);
+
+      await Promise.all([
+        User.updateOne(
+          { _id: jwtPayload._id },
+          { password: hashedPassword, is_active: true },
+        ),
+        Action.deleteMany({
+          _userId: jwtPayload._id,
+          tokenType: EActionTokenTypes.Activate,
+        }),
+      ]);
     } catch (e) {
       throw new ApiError(e.message, e.status);
     }

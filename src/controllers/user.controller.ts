@@ -4,13 +4,13 @@ import { userService } from "../services";
 import { IPagination, IQuery, IUser } from "../types";
 
 class UserController {
-  public async addUser(
+  public async create(
     req: Request,
     res: Response,
     next: NextFunction,
   ): Promise<Response<void>> {
     try {
-      await userService.addUser(req.body);
+      await userService.create(req.body);
 
       return res.sendStatus(201);
     } catch (e) {
