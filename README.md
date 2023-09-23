@@ -35,17 +35,37 @@ FRONT_URL= { To generate a user activation link }
 
  ## Install all libraries
 ```
-npm install
+ npm install
 
-yarn install
+ yarn install
 ```
  ## Start project:
 ```
-npm run start
+ npm run start
 
-yarn start
+ yarn start
 ```
 
+ ### After the first run, delete some of the code in app.ts as indicated in the comments. This code snippet initiates the creation of an administrator.
+ ## [HERE](./src/app.ts)
+
+```
+      // After the first run, delete this part of the code! FROM HERE
+      const isAdmin = await User.findOne({ email: "admin@gmail.com" });
+
+      if (!isAdmin) {
+        await createAdminService.create();
+      }
+
+      // After the first run, delete some of the code! END
+```
+
+ ### Login for the administrator 
+```
+ email: "admin@gmail.com", 
+ 
+ password: "admin"
+```
 
  ## Documentation (swagger) on using endpoints is [> here <](http://localhost:5010/api/docs)
 

@@ -83,8 +83,11 @@ class UserController {
     next: NextFunction,
   ): Promise<Response<string>> {
     try {
-      const token = await userService.getActivationLink(req.body);
-      return res.status(200).json(token);
+      const { userId } = req.params;
+      const linkWithTokenToActivate =
+        await userService.getActivationLink(userId);
+
+      return res.status(200).json(linkWithTokenToActivate);
     } catch (e) {
       next(e);
     }

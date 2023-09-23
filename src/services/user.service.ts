@@ -2,7 +2,7 @@ import { configs } from "../configs";
 import { EActionTokenTypes, EObjectType } from "../enums";
 import { ApiError } from "../errors";
 import { User } from "../models";
-import { IAddUser, IPagination, IQuery, IUser, IUserActivate } from "../types";
+import { IAddUser, IPagination, IQuery, IUser } from "../types";
 import { paginationService } from "./pagination.service";
 import { tokenService } from "./token.service";
 
@@ -15,10 +15,11 @@ class UserService {
     }
   }
 
-  public async getActivationLink(data: IUserActivate): Promise<string> {
+  public async getActivationLink(userId: string): Promise<string> {
     try {
+      const user = await User.findById(userId);
       const token = tokenService.generationActionToken(
-        { _id: data._id, email: data.email },
+        { _id: userId, email: user.email },
         EActionTokenTypes.Activate,
       );
 

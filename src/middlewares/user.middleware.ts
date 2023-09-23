@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 
 import { ApiError } from "../errors";
 import { User } from "../models";
-import { createAdminService } from "../services";
 import { IUser } from "../types";
 
 class UsersMiddleware {
@@ -18,15 +17,10 @@ class UsersMiddleware {
         );
 
         if (!user) {
-          if (req.body[field] === "admin@gmail.com") {
-            res.locals.user = await createAdminService.create(req.body);
-          } else {
-            throw new ApiError("User not found", 422);
-          }
-        } else {
-          res.locals.user = user;
+          throw new ApiError("User not found", 422);
         }
 
+        res.locals.user = user;
         next();
       } catch (e) {
         next(e);
