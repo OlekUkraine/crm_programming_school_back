@@ -12,15 +12,16 @@ const router = Router();
 
 router.post(
   "/add",
+  commonMiddleware.isBodyValid(UserValidator.create),
   authMiddleware.checkAccessToken,
   userMiddleware.isSuperuser,
-  commonMiddleware.isBodyValid(UserValidator.create),
   userMiddleware.findAndThrow("email"),
   userController.create,
 );
 
 router.get(
-  "/activate",
+  "/:userId/activation-token",
+  commonMiddleware.isIdValid("userId"),
   authMiddleware.checkAccessToken,
   userMiddleware.isSuperuser,
   userController.getActivationLink,
@@ -35,25 +36,25 @@ router.get(
 
 router.get(
   "/:userId",
+  commonMiddleware.isIdValid("userId"),
   authMiddleware.checkAccessToken,
   userMiddleware.isSuperuser,
-  commonMiddleware.isIdValid("userId"),
   userController.findById,
 );
 
 router.put(
   "/update/:userId",
+  commonMiddleware.isIdValid("userId"),
   authMiddleware.checkAccessToken,
   userMiddleware.isSuperuser,
-  commonMiddleware.isIdValid("userId"),
   userController.updateById,
 );
 
 router.delete(
   "/delete/:userId",
+  commonMiddleware.isIdValid("userId"),
   authMiddleware.checkAccessToken,
   userMiddleware.isSuperuser,
-  commonMiddleware.isIdValid("userId"),
   userController.deleteById,
 );
 

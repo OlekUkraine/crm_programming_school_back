@@ -11,22 +11,22 @@ router.post("/add", authMiddleware.checkAccessToken, orderController.addOrder);
 
 router.get(
   "/:orderId",
-  authMiddleware.checkAccessToken,
   commonMiddleware.isIdValid("orderId"),
+  authMiddleware.checkAccessToken,
   orderController.findById,
 );
 
 router.put(
   "/update/:orderId",
-  authMiddleware.checkAccessToken,
   commonMiddleware.isIdValid("orderId"),
+  authMiddleware.checkAccessToken,
   orderController.updateById,
 );
 
 router.delete(
   "/delete/:orderId",
-  authMiddleware.checkAccessToken,
   commonMiddleware.isIdValid("orderId"),
+  authMiddleware.checkAccessToken,
   orderController.deleteById,
 );
 

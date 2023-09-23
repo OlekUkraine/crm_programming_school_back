@@ -1,13 +1,13 @@
 import { User } from "../models";
-import { ICredentials, IUser } from "../types";
+import { IUser } from "../types";
 import { passwordService } from "./password.service";
 
 class CreateAdminService {
-  public async create(credential: ICredentials): Promise<IUser> {
-    const hashedPassword = await passwordService.hash(credential.password);
+  public async create(): Promise<IUser> {
+    const hashedPassword = await passwordService.hash("admin");
 
     return await User.create({
-      email: credential.email,
+      email: "admin@gmail.com",
       password: hashedPassword,
       is_active: true,
       is_superuser: true,
