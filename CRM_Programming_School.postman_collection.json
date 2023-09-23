@@ -1,0 +1,652 @@
+{
+	"info": {
+		"_postman_id": "1ee03b77-e42e-4551-a155-15e397c8c71a",
+		"name": "CRM_Programming_School",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27396196"
+	},
+	"item": [
+		{
+			"name": "AUTH",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonBody = JSON.parse(responseBody);",
+									"",
+									"pm.environment.set(\"accessToken\", jsonBody.accessToken);",
+									"pm.environment.set(\"refreshToken\", jsonBody.refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"olekfromukraine@gmail.com\",\n    \"password\": \"eleonora1101\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}auth/login",
+							"host": [
+								"{{API}}auth"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// const jsonBody = JSON.parse(responseBody);",
+									"",
+									"// pm.environment.set(\"accessToken\", jsonBody.accessToken);",
+									"// pm.environment.set(\"refreshToken\", jsonBody.refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{actionToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"eleonora1101\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}auth/activate",
+							"host": [
+								"{{API}}auth"
+							],
+							"path": [
+								"activate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "USERS",
+			"item": [
+				{
+					"name": "Get all",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// const jsonBody = JSON.parse(responseBody);",
+									"",
+									"// pm.environment.set(\"accessToken\", jsonBody.accessToken);",
+									"// pm.environment.set(\"refreshToken\", jsonBody.refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}users/list",
+							"host": [
+								"{{API}}users"
+							],
+							"path": [
+								"list"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// const jsonBody = JSON.parse(responseBody);",
+									"",
+									"// pm.environment.set(\"accessToken\", jsonBody.accessToken);",
+									"// pm.environment.set(\"refreshToken\", jsonBody.refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"dupa\",\n    \"surname\": \"admin\",\n    \"email\": \"dupa@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}users/create",
+							"host": [
+								"{{API}}users"
+							],
+							"path": [
+								"create"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activate user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// const jsonBody = JSON.parse(responseBody);",
+									"",
+									"// pm.environment.set(\"accessToken\", jsonBody.accessToken);",
+									"// pm.environment.set(\"refreshToken\", jsonBody.refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}users/650f3226c9e06d8374e6abda/activation-token",
+							"host": [
+								"{{API}}users"
+							],
+							"path": [
+								"650f3226c9e06d8374e6abda",
+								"activation-token"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find user by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// const jsonBody = JSON.parse(responseBody);",
+									"",
+									"// pm.environment.set(\"accessToken\", jsonBody.accessToken);",
+									"// pm.environment.set(\"refreshToken\", jsonBody.refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}users/6503460358ca068e12c0dd75",
+							"host": [
+								"{{API}}users"
+							],
+							"path": [
+								"6503460358ca068e12c0dd75"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// const jsonBody = JSON.parse(responseBody);",
+									"",
+									"// pm.environment.set(\"accessToken\", jsonBody.accessToken);",
+									"// pm.environment.set(\"refreshToken\", jsonBody.refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"is_active\": true,\n    \"is_superuser\": false,\n    \"is_staff\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}users/6503460358ca068e12c0dd75/update",
+							"host": [
+								"{{API}}users"
+							],
+							"path": [
+								"6503460358ca068e12c0dd75",
+								"update"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// const jsonBody = JSON.parse(responseBody);",
+									"",
+									"// pm.environment.set(\"accessToken\", jsonBody.accessToken);",
+									"// pm.environment.set(\"refreshToken\", jsonBody.refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}users/6503460358ca068e12c0dd75/delete",
+							"host": [
+								"{{API}}users"
+							],
+							"path": [
+								"6503460358ca068e12c0dd75",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ORDERS",
+			"item": [
+				{
+					"name": "Get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API}}orders/list",
+							"host": [
+								"{{API}}orders"
+							],
+							"path": [
+								"list"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "sortedBy",
+									"value": "name",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}orders/add",
+							"host": [
+								"{{API}}orders"
+							],
+							"path": [
+								"add"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "sortedBy",
+									"value": "name",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find order by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}orders/57734",
+							"host": [
+								"{{API}}orders"
+							],
+							"path": [
+								"57734"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "sortedBy",
+									"value": "name",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update order",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}orders/update/57734",
+							"host": [
+								"{{API}}orders"
+							],
+							"path": [
+								"update",
+								"57734"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "sortedBy",
+									"value": "name",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete order",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}orders/delete/57734",
+							"host": [
+								"{{API}}orders"
+							],
+							"path": [
+								"delete",
+								"57734"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "sortedBy",
+									"value": "name",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
