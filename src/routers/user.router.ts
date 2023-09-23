@@ -43,7 +43,7 @@ router.get(
 );
 
 router.put(
-  "/update/:userId",
+  "/:userId/update",
   commonMiddleware.isIdValid("userId"),
   authMiddleware.checkAccessToken,
   userMiddleware.isSuperuser,
@@ -51,7 +51,7 @@ router.put(
 );
 
 router.delete(
-  "/delete/:userId",
+  "/:userId/delete",
   commonMiddleware.isIdValid("userId"),
   authMiddleware.checkAccessToken,
   userMiddleware.isSuperuser,
