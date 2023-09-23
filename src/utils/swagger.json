@@ -197,7 +197,7 @@
         }
       }
     },
-    "/orders/update/{orderId}": {
+    "/orders/{orderId}/update": {
       "put": {
         "tags": ["orders"],
         "summary": "Update one order by id",
@@ -239,7 +239,7 @@
         }
       }
     },
-    "/orders/delete/{orderId}": {
+    "/orders/{orderId}/delete": {
       "delete": {
         "tags": ["orders"],
         "summary": "Delete order by id",
@@ -438,7 +438,7 @@
         }
       }
     },
-    "/users/update/{userId}": {
+    "/users/{userId}/update": {
       "put": {
         "tags": ["users"],
         "summary": "Update one user by id",
@@ -480,7 +480,7 @@
         }
       }
     },
-    "/users/delete/{userId}": {
+    "/users/{userId}/delete": {
       "delete": {
         "tags": ["users"],
         "summary": "Delete user by id",

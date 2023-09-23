@@ -17,14 +17,14 @@ router.get(
 );
 
 router.put(
-  "/update/:orderId",
+  "/:orderId/update",
   commonMiddleware.isIdValid("orderId"),
   authMiddleware.checkAccessToken,
   orderController.updateById,
 );
 
 router.delete(
-  "/delete/:orderId",
+  "/:orderId/delete",
   commonMiddleware.isIdValid("orderId"),
   authMiddleware.checkAccessToken,
   orderController.deleteById,
