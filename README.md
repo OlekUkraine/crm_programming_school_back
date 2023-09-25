@@ -14,7 +14,7 @@ https://github.com/OlekUkraine/crm_programming_school_back.git
 ```
 PORT= { The port you will use in your application }
 
-DB_URL= { mongodb+srv://<username>:<password>@day-06-06-2023.nxqwqpr.mongodb.net }
+DB_URL= { mongodb+srv:// }
 
 SECRET_SALT= { secret salt }
 
@@ -44,20 +44,6 @@ FRONT_URL= { To generate a user activation link }
  npm run start
 
  yarn start
-```
-
- ### After the first run, delete some of the code in app.ts as indicated in the comments. This code snippet initiates the creation of an administrator.
- ## [HERE](./src/app.ts)
-
-```
-      // After the first run, delete this part of the code! FROM HERE
-      const isAdmin = await User.findOne({ email: "admin@gmail.com" });
-
-      if (!isAdmin) {
-        await createAdminService.create();
-      }
-
-      // After the first run, delete some of the code! END
 ```
 
  ### Login for the administrator 
