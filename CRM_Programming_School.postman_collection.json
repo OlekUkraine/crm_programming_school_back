@@ -191,7 +191,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{API}}users/create",
+							"raw": "{{API}}users/add",
 							"host": [
 								"{{API}}users"
 							],
