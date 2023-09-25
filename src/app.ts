@@ -3,9 +3,7 @@ import * as mongoose from "mongoose";
 import swaggerUi from "swagger-ui-express";
 
 import { configs } from "./configs";
-import { User } from "./models";
 import { authRouter, orderRouter, userRouter } from "./routers";
-import { createAdminService } from "./services";
 import * as swaggerJson from "./utils/swagger.json";
 
 const app = express();
@@ -24,15 +22,6 @@ const startApp = async () => {
     app.listen(configs.PORT, async () => {
       // eslint-disable-next-line no-console
       console.log(`Server has started on PORT ${configs.PORT} 👌`);
-
-      // After the first run, delete this part of the code! FROM HERE
-      const isAdmin = await User.findOne({ email: "admin@gmail.com" });
-
-      if (!isAdmin) {
-        await createAdminService.create();
-      }
-
-      // After the first run, delete some of the code! END
     });
   } catch (error) {
     // eslint-disable-next-line no-console
