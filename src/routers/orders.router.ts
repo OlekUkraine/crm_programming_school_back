@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 import { orderController } from "../controllers";
+import { excelController } from "../controllers/excel.controller";
 import { authMiddleware, commonMiddleware } from "../middlewares";
 
 const router = Router();
@@ -8,6 +9,12 @@ const router = Router();
 router.get("/list", authMiddleware.checkAccessToken, orderController.getAll);
 
 router.post("/add", authMiddleware.checkAccessToken, orderController.addOrder);
+
+router.get(
+  "/excel",
+  // authMiddleware.checkAccessToken,
+  excelController.createExcelFile,
+);
 
 router.get(
   "/:orderId",
@@ -21,13 +28,6 @@ router.put(
   commonMiddleware.isIdValid("orderId"),
   authMiddleware.checkAccessToken,
   orderController.updateById,
-);
-
-router.delete(
-  "/:orderId/delete",
-  commonMiddleware.isIdValid("orderId"),
-  authMiddleware.checkAccessToken,
-  orderController.deleteById,
 );
 
 export const orderRouter = router;

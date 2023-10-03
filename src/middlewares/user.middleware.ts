@@ -17,7 +17,8 @@ class UsersMiddleware {
         );
 
         if (!user) {
-          throw new ApiError("User not found", 422);
+          res.status(401).json({ error: "Invalid email or password" });
+          return;
         }
 
         res.locals.user = user;
@@ -49,12 +50,35 @@ class UsersMiddleware {
     };
   }
 
-  public async isSuperuser(req: Request, res: Response, next: NextFunction) {
+  public async isSuperuser(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
     try {
       const { _id: userId } = req.res.locals.tokenPayload;
       const user = await User.findOne({ _id: userId });
 
       if (!user.is_superuser) {
+        throw new ApiError("You do not have access!", 403);
+      }
+
+      next();
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  public async isActive(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const { _id: userId } = req.res.locals.tokenPayload;
+      const user = await User.findOne({ _id: userId });
+
+      if (!user.is_active) {
         throw new ApiError("You do not have access!", 403);
       }
 

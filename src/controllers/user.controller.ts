@@ -62,21 +62,6 @@ class UserController {
     }
   }
 
-  public async deleteById(
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ): Promise<Response<void>> {
-    try {
-      const { userId } = req.params;
-      await userService.deleteById(userId);
-
-      return res.status(204);
-    } catch (e) {
-      next(e);
-    }
-  }
-
   public async getActivationLink(
     req: Request,
     res: Response,
@@ -88,6 +73,28 @@ class UserController {
         await userService.getActivationLink(userId);
 
       return res.status(200).json(linkWithTokenToActivate);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  public async ban(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { userId } = req.params;
+
+      const banedUser = await userService.ban(userId);
+      return res.status(200).json(banedUser);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  public async unban(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { userId } = req.params;
+
+      const banedUser = await userService.unban(userId);
+      return res.status(200).json(banedUser);
     } catch (e) {
       next(e);
     }

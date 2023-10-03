@@ -23,7 +23,7 @@ class UserService {
         EActionTokenTypes.Activate,
       );
 
-      return `${configs.FRONT_URL}/${token}`;
+      return `${configs.FRONT_URL}/${configs.FRONT_PORT}/${token}`;
     } catch (e) {
       throw new ApiError(e.message, e.status);
     }
@@ -52,8 +52,24 @@ class UserService {
     );
   }
 
-  public async deleteById(id: string): Promise<void> {
-    await User.deleteOne({ _id: id });
+  async ban(userId: string): Promise<IUser> {
+    await this.getOneByIdOrThrow(userId);
+
+    return await User.findOneAndUpdate(
+      { _id: userId },
+      { is_active: false },
+      { returnDocument: "after" },
+    );
+  }
+
+  async unban(userId: string): Promise<IUser> {
+    await this.getOneByIdOrThrow(userId);
+
+    return await User.findOneAndUpdate(
+      { _id: userId },
+      { is_active: true },
+      { returnDocument: "after" },
+    );
   }
 
   private async getOneByIdOrThrow(userId: string): Promise<IUser> {

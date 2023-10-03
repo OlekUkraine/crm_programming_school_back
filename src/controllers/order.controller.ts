@@ -61,21 +61,6 @@ class OrderController {
       next(e);
     }
   }
-
-  public async deleteById(
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ): Promise<Response<IOrder>> {
-    try {
-      const { orderId } = req.params;
-      const deletedOrder = await orderService.deleteById(orderId);
-
-      return res.status(204).json(deletedOrder);
-    } catch (e) {
-      next(e);
-    }
-  }
 }
 
 export const orderController = new OrderController();

@@ -36,10 +36,6 @@ class OrderService {
     );
   }
 
-  public async deleteById(id: string): Promise<void> {
-    await Order.deleteOne({ _id: id });
-  }
-
   private async getOneByIdOrThrow(orderId: string): Promise<IOrder> {
     const order = await Order.findById(orderId);
 

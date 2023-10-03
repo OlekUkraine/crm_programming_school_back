@@ -18,5 +18,6 @@ export const configs = {
   LIFETIME_REFRESH_TOKEN: process.env.LIFETIME_REFRESH_TOKEN,
   LIFETIME_ACTIVATE_TOKEN: process.env.LIFETIME_ACTIVATE_TOKEN,
 
+  FRONT_PORT: process.env.FRONT_PORT,
   FRONT_URL: process.env.FRONT_URL,
 };
