@@ -130,6 +130,57 @@
         }
       }
     },
+    "/orders/excel": {
+      "get": {
+        "tags": ["orders"],
+        "summary": "Get a paginated list of Orders in Excel format.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "description": "Access token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a paginated list of Orders in Excel file.",
+            "schema": {
+              "properties": {
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/definitions/Order"
+                  }
+              }
+            }
+          }
+        }
+      }
+    },
     "/orders/{orderId}": {
       "get": {
         "tags": ["orders"],
@@ -235,38 +286,6 @@
             "schema": {
               "$ref": "#/definitions/Order"
             }
-          }
-        }
-      }
-    },
-    "/orders/{orderId}/delete": {
-      "delete": {
-        "tags": ["orders"],
-        "summary": "Delete order by id",
-        "operationId": "deleteOrder",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization",
-            "required": true,
-            "description": "Access token",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderId",
-            "in": "path",
-            "description": "ID of order to delete",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
           }
         }
       }
@@ -480,11 +499,11 @@
         }
       }
     },
-    "/users/{userId}/delete": {
-      "delete": {
+    "/users/{userId}/ban": {
+      "get": {
         "tags": ["users"],
-        "summary": "Delete user by id",
-        "operationId": "deleteUser",
+        "summary": "Get one user by id",
+        "operationId": "getUser",
         "parameters": [
           {
             "in": "header",
@@ -498,7 +517,7 @@
           {
             "name": "userId",
             "in": "path",
-            "description": "ID of user delete",
+            "description": "ID of user to return",
             "required": true,
             "schema": {
               "type": "string"
@@ -506,8 +525,46 @@
           }
         ],
         "responses": {
-          "204": {
-            "description": ""
+          "200": {
+            "description": "Returns the user by id.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/unban": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Get one user by id",
+        "operationId": "getUser",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "description": "Access token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of user to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the user by id.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
           }
         }
       }

@@ -1,0 +1,16 @@
+export enum ESortOrder {
+  _id = "_id",
+  name = "name",
+  surname = "surname",
+  email = "email",
+  phone = "phone",
+  age = "age",
+  course = "course",
+  course_format = "course_format",
+  course_type = "course_type",
+  sum = "sum",
+  already_paid = "already_paid",
+  created_at = "created_at",
+  update_at = "update_at",
+  status = "status",
+}

@@ -30,7 +30,7 @@ class PaginationService {
       const [data, ordersTotalCount] = await Promise.all([
         objectModel
           .find(searchObject)
-          .sort(sortedBy ?? { _id: -1 })
+          .sort({ [sortedBy]: -1 })
           .limit(+limit)
           .skip(skip)
           .exec(),

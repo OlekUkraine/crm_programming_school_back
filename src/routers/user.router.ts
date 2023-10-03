@@ -50,12 +50,20 @@ router.put(
   userController.updateById,
 );
 
-router.delete(
-  "/:userId/delete",
+router.put(
+  "/:userId/ban",
   commonMiddleware.isIdValid("userId"),
   authMiddleware.checkAccessToken,
   userMiddleware.isSuperuser,
-  userController.deleteById,
+  userController.ban,
+);
+
+router.put(
+  "/:userId/unban",
+  commonMiddleware.isIdValid("userId"),
+  authMiddleware.checkAccessToken,
+  userMiddleware.isSuperuser,
+  userController.unban,
 );
 
 export const userRouter = router;
