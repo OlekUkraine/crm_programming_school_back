@@ -216,38 +216,6 @@
         }
       }
     },
-    "/orders/add": {
-      "post": {
-        "tags": ["orders"],
-        "summary": "Add new order",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization",
-            "required": true,
-            "description": "Access token",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "order",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/Order"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns the order id.",
-            "schema": {
-              "$ref": "#/definitions/Id"
-            }
-          }
-        }
-      }
-    },
     "/orders/{orderId}/update": {
       "put": {
         "tags": ["orders"],
@@ -698,6 +666,10 @@
           "type": "string"
         },
         "status": {
+          "type": "string",
+          "default": null
+        },
+        "userId": {
           "type": "string",
           "default": null
         }

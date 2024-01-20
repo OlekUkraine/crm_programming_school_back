@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 
 import { orderService } from "../services";
 import { excelService } from "../services/excel.service";
-import { IQuery } from "../types";
 
 class ExcelController {
   public async createExcelFile(
@@ -12,7 +11,8 @@ class ExcelController {
   ): Promise<Response<void>> {
     try {
       const orders = await orderService.findAllWithPagination(
-        req.query as unknown as IQuery,
+        // req.query as unknown as IQuery,
+        req,
       );
 
       const buffer = await excelService.createExcelFile(orders.entities);

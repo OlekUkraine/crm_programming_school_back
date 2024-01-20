@@ -1,36 +1,37 @@
+import { Request } from "express";
 import { Model } from "mongoose";
 
 import { EObjectType } from "../enums";
 import { ApiError } from "../errors";
 import { Order, User } from "../models";
 import { IPagination, IQuery } from "../types";
+import { CustomSessionData } from "../types/session.type";
 
 class PaginationService {
   public async addPaginationForList<T>(
     query: IQuery,
     objectType: EObjectType,
+    req: Request & { session: CustomSessionData },
   ): Promise<IPagination<T>> {
     try {
-      let objectModel: Model<any>;
-
       const { page = 1, limit = 25, sortedBy, ...searchObject } = query;
       const skip = +limit * (+page - 1);
+      const objectOfSort = this.getSortObjectFromSession(req);
 
-      switch (objectType) {
-        case EObjectType.User:
-          objectModel = User;
-          break;
-        case EObjectType.Order:
-          objectModel = Order;
-          break;
-        default:
-          objectModel = User;
-      }
+      const toggleSortDirection = (keyName: string): Record<string, number> => {
+        return this.toggleSortDirection(objectOfSort, keyName, req);
+      };
 
-      const [data, ordersTotalCount] = await Promise.all([
+      const objectModel: Model<any> =
+        objectType === EObjectType.Order ? Order : User;
+
+      const [data, itemCount] = await Promise.all([
         objectModel
-          .find(searchObject)
-          .sort({ [sortedBy]: -1 })
+          .find({ ...searchObject })
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+
+          .sort(sortedBy ? toggleSortDirection(sortedBy) : { _id: -1 })
           .limit(+limit)
           .skip(skip)
           .exec(),
@@ -40,13 +41,36 @@ class PaginationService {
       return {
         page: +page,
         prePage: +limit,
-        itemCount: ordersTotalCount,
+        itemCount,
         itemFound: data.length,
         entities: data as T[],
       };
     } catch (e) {
       throw new ApiError(e.message, e.status);
     }
+  }
+
+  private getSortObjectFromSession(
+    req: Request & { session: CustomSessionData },
+  ): Record<string, number> {
+    return req.session.sort || {};
+  }
+
+  private toggleSortDirection(
+    currentSortObject: Record<string, number>,
+    keyName: string,
+    req: Request & { session: CustomSessionData },
+  ): Record<string, number> {
+    const updatedSortObject = { ...currentSortObject };
+
+    if (updatedSortObject[keyName] === -1) {
+      updatedSortObject[keyName] = 1;
+    } else {
+      updatedSortObject[keyName] = -1;
+    }
+
+    req.session.sort = updatedSortObject;
+    return { [keyName]: updatedSortObject[keyName] };
   }
 }
 

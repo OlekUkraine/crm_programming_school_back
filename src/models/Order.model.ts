@@ -60,6 +60,11 @@ const orderSchema = new Schema(
       type: String,
       default: null,
     },
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: "users",
+      default: null,
+    },
   },
   {
     versionKey: false,

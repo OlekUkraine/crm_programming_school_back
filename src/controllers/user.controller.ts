@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 
 import { userService } from "../services";
-import { IPagination, IQuery, IUser } from "../types";
+import { IPagination, IUser } from "../types";
 
 class UserController {
   public async create(
@@ -24,9 +24,7 @@ class UserController {
     next: NextFunction,
   ): Promise<Response<IPagination<IUser>>> {
     try {
-      const users = await userService.findAllWithPagination(
-        req.query as unknown as IQuery,
-      );
+      const users = await userService.findAllWithPagination(req);
 
       return res.json(users);
     } catch (e) {

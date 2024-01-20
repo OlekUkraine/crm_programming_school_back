@@ -8,8 +8,6 @@ const router = Router();
 
 router.get("/list", authMiddleware.checkAccessToken, orderController.getAll);
 
-router.post("/add", authMiddleware.checkAccessToken, orderController.addOrder);
-
 router.get(
   "/excel",
   // authMiddleware.checkAccessToken,

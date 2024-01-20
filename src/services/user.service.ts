@@ -1,3 +1,5 @@
+import { Request } from "express";
+
 import { configs } from "../configs";
 import { EActionTokenTypes, EObjectType } from "../enums";
 import { ApiError } from "../errors";
@@ -30,11 +32,12 @@ class UserService {
   }
 
   public async findAllWithPagination(
-    query: IQuery,
+    req: Request,
   ): Promise<IPagination<IUser>> {
     return await paginationService.addPaginationForList<IUser>(
-      query,
+      req.query as IQuery,
       EObjectType.User,
+      req,
     );
   }
 

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 
 import { orderService } from "../services";
-import { IOrder, IPagination, IQuery } from "../types";
+import { IOrder, IPagination } from "../types";
 
 class OrderController {
   public async getAll(
@@ -11,24 +11,11 @@ class OrderController {
   ): Promise<Response<IPagination<IOrder>>> {
     try {
       const orders = await orderService.findAllWithPagination(
-        req.query as unknown as IQuery,
+        // req.query as unknown as IQuery,
+        req,
       );
 
       return res.json(orders);
-    } catch (e) {
-      next(e);
-    }
-  }
-
-  public async addOrder(
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ): Promise<Response<void>> {
-    try {
-      await orderService.addOrder(req.body);
-
-      return res.sendStatus(201);
     } catch (e) {
       next(e);
     }

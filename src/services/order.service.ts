@@ -1,8 +1,11 @@
+import { Request } from "express";
+
 import { EObjectType } from "../enums";
 import { ApiError } from "../errors";
 import { Order } from "../models";
 import { IOrder, IPagination, IQuery } from "../types";
 import { paginationService } from "./pagination.service";
+// import { updateManyModels } from "./update.many.models";
 
 class OrderService {
   public async getAll(): Promise<IOrder[]> {
@@ -10,16 +13,16 @@ class OrderService {
   }
 
   public async findAllWithPagination(
-    query: IQuery,
+    req: Request,
   ): Promise<IPagination<IOrder>> {
-    return await paginationService.addPaginationForList<IOrder>(
-      query,
-      EObjectType.Order,
-    );
-  }
+    const { query } = req;
 
-  public async addOrder(data: IOrder) {
-    return await Order.create(data);
+    // await updateManyModels.updateManyModels();
+    return await paginationService.addPaginationForList<IOrder>(
+      query as IQuery,
+      EObjectType.Order,
+      req,
+    );
   }
 
   public async findById(id: string): Promise<IOrder> {

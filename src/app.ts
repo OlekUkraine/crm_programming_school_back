@@ -1,4 +1,5 @@
 import express from "express";
+import session from "express-session";
 import * as mongoose from "mongoose";
 import swaggerUi from "swagger-ui-express";
 
@@ -11,6 +12,14 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(
+  session({
+    secret: configs.SESSION_SECRET_KEY,
+    resave: false,
+    saveUninitialized: true,
+    // cookie: { secure: true },
+  }),
+);
 
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
