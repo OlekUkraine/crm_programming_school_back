@@ -48,6 +48,20 @@ class GroupController {
       next(e);
     }
   }
+
+  public async delete(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response<void>> {
+    try {
+      await groupService.remove(req.body);
+
+      return res.status(200);
+    } catch (e) {
+      next(e);
+    }
+  }
 }
 
 export const groupController = new GroupController();

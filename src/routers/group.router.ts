@@ -6,7 +6,7 @@ import {
   commonMiddleware,
   userMiddleware,
 } from "../middlewares";
-// import { groupMiddleware } from "../middlewares/group.middleware";
+import { groupMiddleware } from "../middlewares/group.middleware";
 import { GroupValidator } from "../validators/group.validator";
 
 const router = Router();
@@ -16,7 +16,7 @@ router.post(
   commonMiddleware.isBodyValid(GroupValidator.create),
   authMiddleware.checkAccessToken,
   userMiddleware.isActive,
-  // groupMiddleware.findOrCreate("groupName"),
+  groupMiddleware.findOrCreate("groupName"),
   groupController.create,
 );
 
@@ -33,6 +33,14 @@ router.get(
   authMiddleware.checkAccessToken,
   userMiddleware.isActive,
   groupController.getById,
+);
+
+router.delete(
+  "/delete/:groupId",
+  commonMiddleware.isIdValid("groupId"),
+  authMiddleware.checkAccessToken,
+  userMiddleware.isSuperuser,
+  groupController.delete,
 );
 
 export const groupRouter = router;

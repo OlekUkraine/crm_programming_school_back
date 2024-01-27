@@ -25,4 +25,10 @@ router.post(
   authController.activate,
 );
 
+router.post(
+  "/refresh",
+  authMiddleware.checkRefreshToken,
+  authController.refresh,
+);
+
 export const authRouter = router;

@@ -31,6 +31,10 @@ class GroupService {
     return await this.getOneByIdOrThrow(groupId);
   }
 
+  public async remove(groupId: string): Promise<void> {
+    await Group.deleteOne({ groupId });
+  }
+
   private async getOneByIdOrThrow(groupId: string): Promise<IGroup> {
     const group = await Group.findById(groupId);
 
