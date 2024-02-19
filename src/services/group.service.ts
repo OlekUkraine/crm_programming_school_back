@@ -4,45 +4,65 @@ import { IAddGroup, IGroup } from "../types/group.type";
 
 class GroupService {
   public async create({ groupName, orderId }: IAddGroup): Promise<IGroup> {
-    const group: IGroup = await Group.findOne({ groupName });
+    try {
+      const group: IGroup = await Group.findOne({ groupName });
 
-    if (!group) {
-      const orderIdArray = [orderId];
-      return await Group.create({ groupName, orderId: orderIdArray });
+      if (!group) {
+        const orderIdArray = [orderId];
+        return await Group.create({ groupName, orderId: orderIdArray });
+      }
+
+      const isOrderInGroup = group.orderId.find((value) => value === orderId);
+
+      if (isOrderInGroup) {
+        throw new ApiError("Order with this id already exist", 409);
+      }
+
+      group.orderId.push(orderId);
+      return await Group.findOneAndUpdate({ _id: group._id }, group, {
+        new: true,
+      });
+    } catch (e) {
+      throw new ApiError(e.message, e.status);
     }
-
-    const isOrderInGroup = group.orderId.find((value) => value === orderId);
-
-    if (isOrderInGroup) {
-      throw new ApiError("Order with this id already exist", 409);
-    }
-
-    group.orderId.push(orderId);
-    return await Group.findOneAndUpdate({ _id: group._id }, group, {
-      new: true,
-    });
   }
 
   public async getAll(): Promise<IGroup[]> {
-    return await Group.find();
+    try {
+      return await Group.find();
+    } catch (e) {
+      throw new ApiError(e.message, e.status);
+    }
   }
 
   public async getById(groupId: string): Promise<IGroup> {
-    return await this.getOneByIdOrThrow(groupId);
+    try {
+      return await this.getOneByIdOrThrow(groupId);
+    } catch (e) {
+      throw new ApiError(e.message, e.status);
+    }
   }
 
   public async remove(groupId: string): Promise<void> {
-    await Group.deleteOne({ groupId });
+    try {
+      await Group.deleteOne({ groupId });
+    } catch (e) {
+      throw new ApiError(e.message, e.status);
+    }
   }
 
   private async getOneByIdOrThrow(groupId: string): Promise<IGroup> {
-    const group = await Group.findById(groupId);
+    try {
+      const group = await Group.findById(groupId);
 
-    if (!group) {
-      throw new ApiError("user not found", 422);
+      if (!group) {
+        throw new ApiError("user not found", 422);
+      }
+
+      return group;
+    } catch (e) {
+      throw new ApiError(e.message, e.status);
     }
-
-    return group;
   }
 }
 

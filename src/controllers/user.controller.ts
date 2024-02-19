@@ -10,9 +10,9 @@ class UserController {
     next: NextFunction,
   ): Promise<Response<void>> {
     try {
-      await userService.create(req.body);
+      const user = await userService.create(req.body);
 
-      return res.sendStatus(201);
+      return res.sendStatus(201).json(user._id);
     } catch (e) {
       next(e);
     }

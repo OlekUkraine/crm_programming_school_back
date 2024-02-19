@@ -6,11 +6,11 @@ import { authMiddleware, commonMiddleware } from "../middlewares";
 
 const router = Router();
 
-router.get("/list", authMiddleware.checkAccessToken, orderController.getAll);
+router.get("/", authMiddleware.checkAccessToken, orderController.getAll);
 
 router.get(
   "/excel",
-  // authMiddleware.checkAccessToken,
+  authMiddleware.checkAccessToken,
   excelController.createExcelFile,
 );
 
@@ -22,7 +22,7 @@ router.get(
 );
 
 router.put(
-  "/:orderId/update",
+  "/:orderId",
   commonMiddleware.isIdValid("orderId"),
   authMiddleware.checkAccessToken,
   orderController.updateById,

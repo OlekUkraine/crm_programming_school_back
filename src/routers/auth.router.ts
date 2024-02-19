@@ -31,4 +31,6 @@ router.post(
   authController.refresh,
 );
 
+router.get("/me", authMiddleware.checkAccessToken, authController.myData);
+
 export const authRouter = router;

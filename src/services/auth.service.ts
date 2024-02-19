@@ -74,11 +74,19 @@ class AuthService {
       const tokensPair = tokenService.generateTokenPair(tokenPayload);
 
       await Promise.all([
-        Token.create({ _userId: tokenPayload._id, ...tokensPair }),
+        Token.create({ ...tokensPair, _userId: tokenPayload._id }),
         Token.deleteOne({ refreshToken: oldTokenPair.refreshToken }),
       ]);
 
-      return tokensPair;
+      return { ...tokensPair };
+    } catch (e) {
+      throw new ApiError(e.message, e.status);
+    }
+  }
+
+  public async userData(jwtPayload: ITokenPayload): Promise<IUser> {
+    try {
+      return User.findById(jwtPayload._id);
     } catch (e) {
       throw new ApiError(e.message, e.status);
     }

@@ -1,22 +1,18 @@
 import { NextFunction, Request, Response } from "express";
 
-// import { Order } from "../models";
-import { groupService } from "../services/group.service";
+import { groupService } from "../services";
 import { IGroup } from "../types/group.type";
-// import { orderController } from "./order.controller";
 
 class GroupController {
   public async create(
     req: Request,
     res: Response,
     next: NextFunction,
-  ): Promise<Response<void>> {
+  ): Promise<Response<IGroup>> {
     try {
       const group = await groupService.create(req.body);
-      if (group) {
-        // await orderController.updateById(req.body.groupId);
-      }
-      return res.status(200).json(group);
+
+      return res.status(200).json(group._id);
     } catch (e) {
       next(e);
     }
@@ -26,10 +22,11 @@ class GroupController {
     req: Request,
     res: Response,
     next: NextFunction,
-  ): Promise<Response<void>> {
+  ): Promise<Response<IGroup>> {
     try {
-      await groupService.getById(req.body);
-      return res.status(200);
+      const group = await groupService.getById(req.params.groupId);
+
+      return res.json(group);
     } catch (e) {
       next(e);
     }
@@ -39,7 +36,7 @@ class GroupController {
     req: Request,
     res: Response,
     next: NextFunction,
-  ): Promise<Response<IGroup>> {
+  ): Promise<Response<IGroup[]>> {
     try {
       const groups = await groupService.getAll();
 

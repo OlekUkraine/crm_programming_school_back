@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
+import { ApiError } from "../errors";
 import { orderService } from "../services";
 import { IOrder, IPagination } from "../types";
 
@@ -8,12 +9,9 @@ class OrderController {
     req: Request,
     res: Response,
     next: NextFunction,
-  ): Promise<Response<IPagination<IOrder>>> {
+  ): Promise<Response<IPagination<IOrder[]>>> {
     try {
-      const orders = await orderService.findAllWithPagination(
-        // req.query as unknown as IQuery,
-        req,
-      );
+      const orders = await orderService.findAllWithPagination(req);
 
       return res.json(orders);
     } catch (e) {
@@ -28,6 +26,11 @@ class OrderController {
   ): Promise<Response<IOrder>> {
     try {
       const orders = await orderService.findById(req.params.orderId);
+
+      if (!orders) {
+        throw new ApiError("Do not find order", 400);
+      }
+
       return res.json(orders);
     } catch (e) {
       next(e);

@@ -4,8 +4,13 @@ import * as mongoose from "mongoose";
 import swaggerUi from "swagger-ui-express";
 
 import { configs } from "./configs";
-import { authRouter, orderRouter, userRouter } from "./routers";
-import { groupRouter } from "./routers/group.router";
+import {
+  authRouter,
+  commentsRouter,
+  groupsRouter,
+  orderRouter,
+  usersRouter,
+} from "./routers";
 import * as swaggerJson from "./utils/swagger.json";
 
 const app = express();
@@ -22,9 +27,10 @@ app.use(
 );
 
 app.use("/auth", authRouter);
-app.use("/users", userRouter);
+app.use("/users", usersRouter);
 app.use("/orders", orderRouter);
-app.use("/group", groupRouter);
+app.use("/groups", groupsRouter);
+app.use("/comments", commentsRouter);
 app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerJson));
 
 const startApp = async () => {

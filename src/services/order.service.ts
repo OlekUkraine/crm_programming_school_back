@@ -5,7 +5,6 @@ import { ApiError } from "../errors";
 import { Order } from "../models";
 import { IOrder, IPagination, IQuery } from "../types";
 import { paginationService } from "./pagination.service";
-// import { updateManyModels } from "./update.many.models";
 
 class OrderService {
   public async getAll(): Promise<IOrder[]> {
@@ -17,7 +16,6 @@ class OrderService {
   ): Promise<IPagination<IOrder>> {
     const { query } = req;
 
-    // await updateManyModels.updateManyModels();
     return await paginationService.addPaginationForList<IOrder>(
       query as IQuery,
       EObjectType.Order,

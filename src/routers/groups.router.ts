@@ -6,22 +6,20 @@ import {
   commonMiddleware,
   userMiddleware,
 } from "../middlewares";
-import { groupMiddleware } from "../middlewares/group.middleware";
 import { GroupValidator } from "../validators/group.validator";
 
 const router = Router();
 
 router.post(
-  "/add",
+  "/",
   commonMiddleware.isBodyValid(GroupValidator.create),
   authMiddleware.checkAccessToken,
   userMiddleware.isActive,
-  groupMiddleware.findOrCreate("groupName"),
   groupController.create,
 );
 
 router.get(
-  "/list",
+  "/",
   authMiddleware.checkAccessToken,
   userMiddleware.isActive,
   groupController.getAll,
@@ -36,11 +34,11 @@ router.get(
 );
 
 router.delete(
-  "/delete/:groupId",
+  "/:groupId",
   commonMiddleware.isIdValid("groupId"),
   authMiddleware.checkAccessToken,
   userMiddleware.isSuperuser,
   groupController.delete,
 );
 
-export const groupRouter = router;
+export const groupsRouter = router;

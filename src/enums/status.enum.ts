@@ -1,6 +1,5 @@
 export enum EStatus {
-  IN = "In",
-  WORK = "work",
+  IN_WORK = "In work",
   NEW = "New",
   AGGRE = "Aggre",
   DISAGGRE = "Disaggre",

@@ -67,7 +67,7 @@
     "/auth/refresh": {
       "post": {
         "tags": ["auth"],
-        "summary": "Refresh token pair.",
+        "summary": "Refresh token.",
         "parameters": [
           {
             "in": "header",
@@ -96,7 +96,7 @@
         }
       }
     },
-    "/orders/list": {
+    "/orders": {
       "get": {
         "tags": ["orders"],
         "summary": "Get list orders with pagination.",
@@ -248,7 +248,7 @@
         }
       }
     },
-    "/orders/{orderId}/update": {
+    "/orders/{orderId}/": {
       "put": {
         "tags": ["orders"],
         "summary": "Update one order by id",
@@ -290,7 +290,7 @@
         }
       }
     },
-    "/users/list": {
+    "/users/": {
       "get": {
         "tags": ["users"],
         "summary": "Get list users with pagination.",
@@ -391,7 +391,7 @@
         }
       }
     },
-    "/users/add": {
+    "/users": {
       "post": {
         "tags": ["users"],
         "summary": "Add new user",
@@ -457,7 +457,7 @@
         }
       }
     },
-    "/users/{userId}/update": {
+    "/users/{userId}/": {
       "put": {
         "tags": ["users"],
         "summary": "Update one user by id",
@@ -569,7 +569,7 @@
         }
       }
     },
-    "/groups/add": {
+    "/groups": {
       "post": {
         "tags": ["groups"],
         "summary": "Add new user",
@@ -601,7 +601,7 @@
         }
       }
     },
-    "/groups/list": {
+    "/groups/": {
       "get": {
         "tags": ["groups"],
         "summary": "Get list groups",
@@ -657,6 +657,99 @@
             "description": "Returns the group by id.",
             "schema": {
               "$ref": "#/definitions/Group"
+            }
+          }
+        }
+      }
+    },
+    "/comments": {
+      "post": {
+        "tags": ["comments"],
+        "summary": "Add new comment",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "description": "Access token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AddComment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the comment id.",
+            "schema": {
+              "$ref": "#/definitions/Id"
+            }
+          }
+        }
+      }
+    },
+    "/comments/": {
+      "get": {
+        "tags": ["comments"],
+        "summary": "Get list comments",
+        "operationId": "getComment",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "description": "Access token",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the comment list.",
+            "schema": {
+              "$ref": "#/definitions/Comment"
+            }
+          }
+        }
+      }
+    },
+    "/comments/{groupId}": {
+      "get": {
+        "tags": ["comments"],
+        "summary": "Get one comment by id",
+        "operationId": "getComment",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "description": "Access token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "commentId",
+            "in": "path",
+            "description": "Id of comment to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the comment by id.",
+            "schema": {
+              "$ref": "#/definitions/Comment"
             }
           }
         }
@@ -792,6 +885,12 @@
         },
         "status": {
           "type": "string",
+          "enum": [
+            "In work",
+            "New",
+            "Aggre",
+            "Disaggre",
+            "Dubbing"],
           "default": null
         },
         "userId": {
@@ -822,6 +921,35 @@
         },
         "groupName": {
           "type": "string"
+        }
+      }
+    },
+    "Comment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "orderId": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 500
+        }
+      }
+    },
+    "AddComment": {
+      "type": "object",
+      "properties": {
+        "orderId": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 500
         }
       }
     },

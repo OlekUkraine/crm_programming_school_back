@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 import { authService } from "../services";
-import { ITokenPair, ITokenPayload } from "../types";
+import { ITokenPair, ITokenPayload, IUser } from "../types";
 
 class AuthController {
   public async activate(req: Request, res: Response): Promise<Response<void>> {
@@ -34,7 +34,6 @@ class AuthController {
   public async refresh(
     req: Request,
     res: Response,
-    // next: NextFunction,
   ): Promise<Response<ITokenPair>> {
     try {
       const oldTokenPair = req.res.locals.oldTokenPair as ITokenPair;
@@ -42,7 +41,20 @@ class AuthController {
 
       const tokenPair = await authService.refresh(oldTokenPair, tokenPayload);
 
-      return res.status(200).json(tokenPair);
+      return res.status(200).json({ ...tokenPair });
+    } catch (e) {
+      return res
+        .status(e.status || 500)
+        .json({ error: e.message || "Internal Server Error" });
+    }
+  }
+
+  public async myData(req: Request, res: Response): Promise<Response<IUser>> {
+    try {
+      const { tokenPayload } = req.res.locals;
+      const user = await authService.userData(tokenPayload);
+
+      return res.status(200).json(user);
     } catch (e) {
       return res
         .status(e.status || 500)

@@ -1,6 +1,6 @@
 import { model, Schema } from "mongoose";
 
-import { ECourse, ECourseFormat, ECourseType } from "../enums";
+import { ECourse, ECourseFormat, ECourseType, EStatus } from "../enums";
 
 const orderSchema = new Schema(
   {
@@ -46,6 +46,7 @@ const orderSchema = new Schema(
     },
     status: {
       type: String,
+      enum: EStatus,
       default: null,
     },
     sum: {

@@ -11,7 +11,7 @@ import { UserValidator } from "../validators";
 const router = Router();
 
 router.post(
-  "/add",
+  "/",
   commonMiddleware.isBodyValid(UserValidator.create),
   authMiddleware.checkAccessToken,
   userMiddleware.isSuperuser,
@@ -28,7 +28,7 @@ router.get(
 );
 
 router.get(
-  "/list",
+  "/",
   authMiddleware.checkAccessToken,
   userMiddleware.isSuperuser,
   userController.getAll,
@@ -43,7 +43,7 @@ router.get(
 );
 
 router.put(
-  "/:userId/update",
+  "/:userId",
   commonMiddleware.isIdValid("userId"),
   authMiddleware.checkAccessToken,
   userMiddleware.isSuperuser,
@@ -66,4 +66,4 @@ router.put(
   userController.unban,
 );
 
-export const userRouter = router;
+export const usersRouter = router;
