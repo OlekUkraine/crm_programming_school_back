@@ -32,13 +32,13 @@ router.get(
   userMiddleware.isActive,
   groupController.getById,
 );
-
-router.delete(
-  "/:groupId",
-  commonMiddleware.isIdValid("groupId"),
-  authMiddleware.checkAccessToken,
-  userMiddleware.isSuperuser,
-  groupController.delete,
-);
+//
+// router.delete(
+//   "/:groupId",
+//   commonMiddleware.isIdValid("groupId"),
+//   authMiddleware.checkAccessToken,
+//   userMiddleware.isSuperuser,
+//   groupController.delete,
+// );
 
 export const groupsRouter = router;

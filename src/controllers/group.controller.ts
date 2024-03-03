@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
+import { ApiError } from "../errors";
 import { groupService } from "../services";
 import { IGroup } from "../types/group.type";
 
@@ -14,7 +15,15 @@ class GroupController {
 
       return res.status(200).json(group._id);
     } catch (e) {
-      next(e);
+      if (e instanceof ApiError) {
+        res
+          .status(e.status)
+          .json({ error: { message: e.message, status: e.status } });
+      } else {
+        res
+          .status(500)
+          .json({ error: { message: "Internal Server Error", status: 500 } });
+      }
     }
   }
 
@@ -28,7 +37,15 @@ class GroupController {
 
       return res.json(group);
     } catch (e) {
-      next(e);
+      if (e instanceof ApiError) {
+        res
+          .status(e.status)
+          .json({ error: { message: e.message, status: e.status } });
+      } else {
+        res
+          .status(500)
+          .json({ error: { message: "Internal Server Error", status: 500 } });
+      }
     }
   }
 
@@ -42,21 +59,15 @@ class GroupController {
 
       return res.status(200).json(groups);
     } catch (e) {
-      next(e);
-    }
-  }
-
-  public async delete(
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ): Promise<Response<void>> {
-    try {
-      await groupService.remove(req.body);
-
-      return res.status(200);
-    } catch (e) {
-      next(e);
+      if (e instanceof ApiError) {
+        res
+          .status(e.status)
+          .json({ error: { message: e.message, status: e.status } });
+      } else {
+        res
+          .status(500)
+          .json({ error: { message: "Internal Server Error", status: 500 } });
+      }
     }
   }
 }

@@ -76,7 +76,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"password\": \"eleonora1101\"\n}",
+							"raw": "{\n    \"password\": \"Pa$$word1\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -94,6 +94,95 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "refresh",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonBody = JSON.parse(responseBody);",
+									"",
+									"pm.environment.set(\"accessToken\", jsonBody.accessToken);",
+									"pm.environment.set(\"refreshToken\", jsonBody.refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{refreshToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"eleonora1101\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}auth/refresh",
+							"host": [
+								"{{API}}auth"
+							],
+							"path": [
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get my data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"eleonora1101\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}auth/my",
+							"host": [
+								"{{API}}auth"
+							],
+							"path": [
+								"my"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -107,10 +196,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"// const jsonBody = JSON.parse(responseBody);",
-									"",
-									"// pm.environment.set(\"accessToken\", jsonBody.accessToken);",
-									"// pm.environment.set(\"refreshToken\", jsonBody.refreshToken);"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -138,16 +224,28 @@
 							}
 						},
 						"url": {
-							"raw": "{{API}}users/list",
+							"raw": "{{API}}users",
 							"host": [
 								"{{API}}users"
 							],
-							"path": [
-								"list"
-							],
 							"query": [
 								{
-									"key": "",
+									"key": "limit",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "sortedBy",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "email",
 									"value": null,
 									"disabled": true
 								}
@@ -157,16 +255,13 @@
 					"response": []
 				},
 				{
-					"name": "Add user",
+					"name": "Add",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"// const jsonBody = JSON.parse(responseBody);",
-									"",
-									"// pm.environment.set(\"accessToken\", jsonBody.accessToken);",
-									"// pm.environment.set(\"refreshToken\", jsonBody.refreshToken);"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -183,7 +278,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"dupa\",\n    \"surname\": \"admin\",\n    \"email\": \"dupa@gmail.com\"\n}",
+							"raw": "{\n    \"name\": \"Oleg\",\n    \"surname\": \"Olegamin\",\n    \"email\": \"oleg@gmail.com\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -191,12 +286,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{API}}users/add",
+							"raw": "{{API}}users",
 							"host": [
 								"{{API}}users"
-							],
-							"path": [
-								"create"
 							],
 							"query": [
 								{
@@ -210,16 +302,13 @@
 					"response": []
 				},
 				{
-					"name": "Activate user",
+					"name": "Activate",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"// const jsonBody = JSON.parse(responseBody);",
-									"",
-									"// pm.environment.set(\"accessToken\", jsonBody.accessToken);",
-									"// pm.environment.set(\"refreshToken\", jsonBody.refreshToken);"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -267,16 +356,13 @@
 					"response": []
 				},
 				{
-					"name": "Find user by id",
+					"name": "Find by id",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"// const jsonBody = JSON.parse(responseBody);",
-									"",
-									"// pm.environment.set(\"accessToken\", jsonBody.accessToken);",
-									"// pm.environment.set(\"refreshToken\", jsonBody.refreshToken);"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -323,16 +409,13 @@
 					"response": []
 				},
 				{
-					"name": "Update user",
+					"name": "Update",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"// const jsonBody = JSON.parse(responseBody);",
-									"",
-									"// pm.environment.set(\"accessToken\", jsonBody.accessToken);",
-									"// pm.environment.set(\"refreshToken\", jsonBody.refreshToken);"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -357,13 +440,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API}}users/6503460358ca068e12c0dd75/update",
+							"raw": "{{API}}users/6503460358ca068e12c0dd75",
 							"host": [
 								"{{API}}users"
 							],
 							"path": [
-								"6503460358ca068e12c0dd75",
-								"update"
+								"6503460358ca068e12c0dd75"
 							],
 							"query": [
 								{
@@ -377,23 +459,20 @@
 					"response": []
 				},
 				{
-					"name": "Delete user",
+					"name": "Ban",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"// const jsonBody = JSON.parse(responseBody);",
-									"",
-									"// pm.environment.set(\"accessToken\", jsonBody.accessToken);",
-									"// pm.environment.set(\"refreshToken\", jsonBody.refreshToken);"
+									""
 								],
 								"type": "text/javascript"
 							}
 						}
 					],
 					"request": {
-						"method": "DELETE",
+						"method": "POST",
 						"header": [
 							{
 								"key": "Authorization",
@@ -411,13 +490,64 @@
 							}
 						},
 						"url": {
-							"raw": "{{API}}users/6503460358ca068e12c0dd75/delete",
+							"raw": "{{API}}users/6503460358ca068e12c0dd75/ban",
 							"host": [
 								"{{API}}users"
 							],
 							"path": [
 								"6503460358ca068e12c0dd75",
-								"delete"
+								"ban"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unban",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}users/6503460358ca068e12c0dd75/unban",
+							"host": [
+								"{{API}}users"
+							],
+							"path": [
+								"6503460358ca068e12c0dd75",
+								"unban"
 							],
 							"query": [
 								{
@@ -470,37 +600,39 @@
 					"response": []
 				},
 				{
-					"name": "Add order",
+					"name": "Create excel file",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
 							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
 						},
 						"url": {
-							"raw": "{{API}}orders/add",
+							"raw": "{{API}}orders/excel?limit=10&page=10",
 							"host": [
 								"{{API}}orders"
 							],
 							"path": [
-								"add"
+								"excel"
 							],
 							"query": [
 								{
 									"key": "limit",
-									"value": "10",
-									"disabled": true
+									"value": "10"
 								},
 								{
 									"key": "page",
-									"value": "100",
-									"disabled": true
+									"value": "10"
 								},
 								{
 									"key": "sortedBy",
@@ -513,7 +645,7 @@
 					"response": []
 				},
 				{
-					"name": "Find order by id",
+					"name": "Find by id",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -559,7 +691,7 @@
 					"response": []
 				},
 				{
-					"name": "Update order",
+					"name": "Update",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -601,12 +733,55 @@
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "GROUP",
+			"item": [
+				{
+					"name": "Add",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"groupName\": \"second\",\n    \"orderId\": \"65c0e083ffd8713152800416\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}groups",
+							"host": [
+								"{{API}}groups"
+							]
+						}
+					},
+					"response": []
 				},
 				{
-					"name": "Delete order",
+					"name": "Get all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
-						"method": "DELETE",
-						"header": [],
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -617,13 +792,138 @@
 							}
 						},
 						"url": {
-							"raw": "{{API}}orders/delete/57734",
+							"raw": "{{API}}groups",
 							"host": [
-								"{{API}}orders"
+								"{{API}}groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}groups/65c0e266a143d0f437b7010b",
+							"host": [
+								"{{API}}groups"
 							],
 							"path": [
-								"delete",
-								"57734"
+								"65c0e266a143d0f437b7010b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "COMENTS",
+			"item": [
+				{
+					"name": "Add",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \n    \"orderId\": \"64ff7f4dc5a366267e0b96ac\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}comments",
+							"host": [
+								"{{API}}comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API}}comments",
+							"host": [
+								"{{API}}comments"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "sortedBy",
+									"value": "name",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API}}comments/65d310933506378e27d07cb0",
+							"host": [
+								"{{API}}comments"
+							],
+							"path": [
+								"65d310933506378e27d07cb0"
 							],
 							"query": [
 								{

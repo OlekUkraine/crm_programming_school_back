@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
+import { ApiError } from "../errors";
 import { userService } from "../services";
 import { IPagination, IUser } from "../types";
 
@@ -14,7 +15,15 @@ class UserController {
 
       return res.sendStatus(201).json(user._id);
     } catch (e) {
-      next(e);
+      if (e instanceof ApiError) {
+        res
+          .status(e.status)
+          .json({ error: { message: e.message, status: e.status } });
+      } else {
+        res
+          .status(500)
+          .json({ error: { message: "Internal Server Error", status: 500 } });
+      }
     }
   }
 
@@ -28,7 +37,15 @@ class UserController {
 
       return res.json(users);
     } catch (e) {
-      next(e);
+      if (e instanceof ApiError) {
+        res
+          .status(e.status)
+          .json({ error: { message: e.message, status: e.status } });
+      } else {
+        res
+          .status(500)
+          .json({ error: { message: "Internal Server Error", status: 500 } });
+      }
     }
   }
 
@@ -41,7 +58,15 @@ class UserController {
       const users = await userService.findById(req.params.userId);
       return res.json(users);
     } catch (e) {
-      next(e);
+      if (e instanceof ApiError) {
+        res
+          .status(e.status)
+          .json({ error: { message: e.message, status: e.status } });
+      } else {
+        res
+          .status(500)
+          .json({ error: { message: "Internal Server Error", status: 500 } });
+      }
     }
   }
 
@@ -56,7 +81,15 @@ class UserController {
 
       return res.status(200).json(updateUser);
     } catch (e) {
-      next(e);
+      if (e instanceof ApiError) {
+        res
+          .status(e.status)
+          .json({ error: { message: e.message, status: e.status } });
+      } else {
+        res
+          .status(500)
+          .json({ error: { message: "Internal Server Error", status: 500 } });
+      }
     }
   }
 
@@ -72,7 +105,15 @@ class UserController {
 
       return res.status(200).json(linkWithTokenToActivate);
     } catch (e) {
-      next(e);
+      if (e instanceof ApiError) {
+        res
+          .status(e.status)
+          .json({ error: { message: e.message, status: e.status } });
+      } else {
+        res
+          .status(500)
+          .json({ error: { message: "Internal Server Error", status: 500 } });
+      }
     }
   }
 
@@ -83,7 +124,15 @@ class UserController {
       const banedUser = await userService.ban(userId);
       return res.status(200).json(banedUser);
     } catch (e) {
-      next(e);
+      if (e instanceof ApiError) {
+        res
+          .status(e.status)
+          .json({ error: { message: e.message, status: e.status } });
+      } else {
+        res
+          .status(500)
+          .json({ error: { message: "Internal Server Error", status: 500 } });
+      }
     }
   }
 
@@ -94,7 +143,15 @@ class UserController {
       const banedUser = await userService.unban(userId);
       return res.status(200).json(banedUser);
     } catch (e) {
-      next(e);
+      if (e instanceof ApiError) {
+        res
+          .status(e.status)
+          .json({ error: { message: e.message, status: e.status } });
+      } else {
+        res
+          .status(500)
+          .json({ error: { message: "Internal Server Error", status: 500 } });
+      }
     }
   }
 }

@@ -28,7 +28,15 @@ class AuthMiddleware {
       res.locals.tokenPayload = payload;
       next();
     } catch (e) {
-      next(e);
+      if (e instanceof ApiError) {
+        res
+          .status(e.status)
+          .json({ error: { message: e.message, status: e.status } });
+      } else {
+        res
+          .status(500)
+          .json({ error: { message: "Internal Server Error", status: 500 } });
+      }
     }
   }
 
@@ -55,7 +63,15 @@ class AuthMiddleware {
       res.locals.tokenPayload = { email: payload.email, _id: payload._id };
       next();
     } catch (e) {
-      next(e);
+      if (e instanceof ApiError) {
+        res
+          .status(e.status)
+          .json({ error: { message: e.message, status: e.status } });
+      } else {
+        res
+          .status(500)
+          .json({ error: { message: "Internal Server Error", status: 500 } });
+      }
     }
   }
 
@@ -81,7 +97,15 @@ class AuthMiddleware {
         req.res.locals = { jwtPayload, tokenFromDB };
         next();
       } catch (e) {
-        next(e);
+        if (e instanceof ApiError) {
+          res
+            .status(e.status)
+            .json({ error: { message: e.message, status: e.status } });
+        } else {
+          res
+            .status(500)
+            .json({ error: { message: "Internal Server Error", status: 500 } });
+        }
       }
     };
   }

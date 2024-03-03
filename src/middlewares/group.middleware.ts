@@ -20,7 +20,15 @@ class GroupMiddleware {
 
         next();
       } catch (e) {
-        next(e);
+        if (e instanceof ApiError) {
+          res
+            .status(e.status)
+            .json({ error: { message: e.message, status: e.status } });
+        } else {
+          res
+            .status(500)
+            .json({ error: { message: "Internal Server Error", status: 500 } });
+        }
       }
     };
   }
