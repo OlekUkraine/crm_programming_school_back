@@ -3,7 +3,7 @@ import { Request } from "express";
 import { configs } from "../configs";
 import { EActionTokenTypes, EObjectType } from "../enums";
 import { ApiError } from "../errors";
-import { User } from "../models";
+import { Action, User } from "../models";
 import { IAddUser, IPagination, IQuery, IUser } from "../types";
 import { paginationService } from "./pagination.service";
 import { tokenService } from "./token.service";
@@ -20,10 +20,21 @@ class UserService {
   public async getActivationLink(userId: string): Promise<string> {
     try {
       const user = await User.findById(userId);
+
+      if (!user) {
+        throw new ApiError("No user found with this id", 400);
+      }
+
       const token = tokenService.generationActionToken(
         { _id: userId, email: user.email },
         EActionTokenTypes.Activate,
       );
+
+      await Action.create({
+        _userId: userId,
+        actionToken: token,
+        tokenType: EActionTokenTypes.Activate,
+      });
 
       return `${configs.FRONT_URL}/${configs.FRONT_PORT}/${token}`;
     } catch (e) {
@@ -60,7 +71,7 @@ class UserService {
 
     return await User.findOneAndUpdate(
       { _id: userId },
-      { is_active: false },
+      { is_staff: false },
       { returnDocument: "after" },
     );
   }
@@ -70,7 +81,7 @@ class UserService {
 
     return await User.findOneAndUpdate(
       { _id: userId },
-      { is_active: true },
+      { is_staff: true },
       { returnDocument: "after" },
     );
   }

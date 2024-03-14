@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "1ee03b77-e42e-4551-a155-15e397c8c71a",
-		"name": "CRM_Programming_School",
+		"name": "CRM_Programming_School.postman_collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "27396196"
 	},
@@ -30,7 +30,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"olekfromukraine@gmail.com\",\n    \"password\": \"eleonora1101\"\n}",
+							"raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"admin\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -122,7 +122,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"password\": \"eleonora1101\"\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -154,8 +154,11 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
@@ -165,7 +168,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"password\": \"eleonora1101\"\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -173,12 +176,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API}}auth/my",
+							"raw": "{{API}}auth/me",
 							"host": [
 								"{{API}}auth"
 							],
 							"path": [
-								"my"
+								"me"
 							]
 						}
 					},
@@ -236,17 +239,17 @@
 								},
 								{
 									"key": "page",
-									"value": null,
+									"value": "",
 									"disabled": true
 								},
 								{
 									"key": "sortedBy",
-									"value": null,
+									"value": "",
 									"disabled": true
 								},
 								{
 									"key": "email",
-									"value": null,
+									"value": "",
 									"disabled": true
 								}
 							]
@@ -278,7 +281,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Oleg\",\n    \"surname\": \"Olegamin\",\n    \"email\": \"oleg@gmail.com\"\n}",
+							"raw": "{\n    \"name\": \"valera1\",\n    \"surname\": \"valeraaminichy1\",\n    \"email\": \"valerus1@gmail.com\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -289,13 +292,6 @@
 							"raw": "{{API}}users",
 							"host": [
 								"{{API}}users"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": null,
-									"disabled": true
-								}
 							]
 						}
 					},
@@ -343,13 +339,6 @@
 							"path": [
 								"650f3226c9e06d8374e6abda",
 								"activation-token"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": null,
-									"disabled": true
-								}
 							]
 						}
 					},
@@ -396,13 +385,6 @@
 							],
 							"path": [
 								"6503460358ca068e12c0dd75"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": null,
-									"disabled": true
-								}
 							]
 						}
 					},
@@ -446,13 +428,6 @@
 							],
 							"path": [
 								"6503460358ca068e12c0dd75"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": null,
-									"disabled": true
-								}
 							]
 						}
 					},
@@ -497,13 +472,6 @@
 							"path": [
 								"6503460358ca068e12c0dd75",
 								"ban"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": null,
-									"disabled": true
-								}
 							]
 						}
 					},
@@ -548,13 +516,6 @@
 							"path": [
 								"6503460358ca068e12c0dd75",
 								"unban"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": null,
-									"disabled": true
-								}
 							]
 						}
 					},
@@ -569,29 +530,87 @@
 					"name": "Get all",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "{{API}}orders/list",
+							"raw": "{{API}}orders",
 							"host": [
 								"{{API}}orders"
-							],
-							"path": [
-								"list"
 							],
 							"query": [
 								{
 									"key": "limit",
-									"value": "10",
+									"value": "30",
 									"disabled": true
 								},
 								{
 									"key": "page",
-									"value": "100",
+									"value": "1",
 									"disabled": true
 								},
 								{
 									"key": "sortedBy",
-									"value": "name",
+									"value": "_id",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "phone",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "surname",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "age",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "course",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "course_format",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "course_type",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "already_paid",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "userId",
+									"value": null,
 									"disabled": true
 								}
 							]
@@ -614,11 +633,11 @@
 							}
 						],
 						"body": {
-							"mode": "formdata",
-							"formdata": []
+							"mode": "raw",
+							"raw": ""
 						},
 						"url": {
-							"raw": "{{API}}orders/excel?limit=10&page=10",
+							"raw": "{{API}}orders/excel",
 							"host": [
 								"{{API}}orders"
 							],
@@ -628,11 +647,13 @@
 							"query": [
 								{
 									"key": "limit",
-									"value": "10"
+									"value": "10",
+									"disabled": true
 								},
 								{
 									"key": "page",
-									"value": "10"
+									"value": "10",
+									"disabled": true
 								},
 								{
 									"key": "sortedBy",
@@ -662,29 +683,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API}}orders/57734",
+							"raw": "{{API}}orders/651183b613bb1664c7c05d7d",
 							"host": [
 								"{{API}}orders"
 							],
 							"path": [
-								"57734"
-							],
-							"query": [
-								{
-									"key": "limit",
-									"value": "10",
-									"disabled": true
-								},
-								{
-									"key": "page",
-									"value": "100",
-									"disabled": true
-								},
-								{
-									"key": "sortedBy",
-									"value": "name",
-									"disabled": true
-								}
+								"651183b613bb1664c7c05d7d"
 							]
 						}
 					},
@@ -705,30 +709,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API}}orders/update/57734",
+							"raw": "{{API}}orders/651183b613bb1664c7c05d7d",
 							"host": [
 								"{{API}}orders"
 							],
 							"path": [
-								"update",
-								"57734"
-							],
-							"query": [
-								{
-									"key": "limit",
-									"value": "10",
-									"disabled": true
-								},
-								{
-									"key": "page",
-									"value": "100",
-									"disabled": true
-								},
-								{
-									"key": "sortedBy",
-									"value": "name",
-									"disabled": true
-								}
+								"651183b613bb1664c7c05d7d"
 							]
 						}
 					},
@@ -853,7 +839,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \n    \"orderId\": \"64ff7f4dc5a366267e0b96ac\"\n}",
+							"raw": "{\n    \"orderId\": \"6511825e1312ea0aac3f6b35\",\n    \"comment\": \"Your comment should be here\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -908,6 +894,9 @@
 				},
 				{
 					"name": "Get by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -917,6 +906,15 @@
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{API}}comments/65d310933506378e27d07cb0",
 							"host": [

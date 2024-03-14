@@ -6,13 +6,11 @@ const userSchema = new Schema(
       type: String,
       maxLength: 20,
       minLength: 1,
-      match: /^[a-zA-Zа-яА-ЯіІїЇ]+$/,
     },
     surname: {
       type: String,
       maxLength: 20,
       minLength: 1,
-      match: /^[a-zA-Zа-яА-ЯіІїЇ]+$/,
     },
     email: {
       type: String,

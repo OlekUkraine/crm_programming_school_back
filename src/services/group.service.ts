@@ -43,14 +43,6 @@ class GroupService {
     }
   }
 
-  public async remove(groupId: string): Promise<void> {
-    try {
-      await Group.deleteOne({ groupId });
-    } catch (e) {
-      throw new ApiError(e.message, e.status);
-    }
-  }
-
   private async getOneByIdOrThrow(groupId: string): Promise<IGroup> {
     try {
       const group = await Group.findById(groupId);

@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 import { authController } from "../controllers";
+import { EActionTokenTypes } from "../enums";
 import {
   authMiddleware,
   commonMiddleware,
@@ -19,9 +20,9 @@ router.post(
 );
 
 router.post(
-  "/activate",
+  "/activate/:token",
   commonMiddleware.isBodyValid(UserValidator.register),
-  authMiddleware.checkActionToken,
+  authMiddleware.checkActionToken(EActionTokenTypes.Activate),
   authController.activate,
 );
 

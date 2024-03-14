@@ -96,6 +96,20 @@
         }
       }
     },
+    "/auth/me": {
+      "post": {
+        "tags": ["auth"],
+        "summary": "Information about the user",
+        "responses": {
+          "200": {
+            "description": "Return user data",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
     "/orders": {
       "get": {
         "tags": ["orders"],

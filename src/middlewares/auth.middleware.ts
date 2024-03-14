@@ -76,7 +76,11 @@ class AuthMiddleware {
   }
 
   public checkActionToken(tokenType: EActionTokenTypes) {
-    return async (req: Request, res: Response, next: NextFunction) => {
+    return async (
+      req: Request,
+      res: Response,
+      next: NextFunction,
+    ): Promise<void> => {
       try {
         const actionToken = req.params.token;
 
@@ -88,7 +92,10 @@ class AuthMiddleware {
           actionToken,
           tokenType,
         );
+
         const tokenFromDB = await Action.findOne({ actionToken });
+
+        console.log(" tokenFromDB > > > > > ", tokenFromDB);
 
         if (!tokenFromDB) {
           throw new ApiError("Token is invalid", 400);

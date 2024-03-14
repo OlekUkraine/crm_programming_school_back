@@ -9,11 +9,13 @@ class UserController {
     req: Request,
     res: Response,
     next: NextFunction,
-  ): Promise<Response<void>> {
+  ): Promise<Response<string>> {
     try {
       const user = await userService.create(req.body);
 
-      return res.sendStatus(201).json(user._id);
+      console.log(user);
+
+      return res.status(201).json(user._id);
     } catch (e) {
       if (e instanceof ApiError) {
         res
@@ -102,6 +104,8 @@ class UserController {
       const { userId } = req.params;
       const linkWithTokenToActivate =
         await userService.getActivationLink(userId);
+
+      console.log("linkWithTokenToActivate", linkWithTokenToActivate);
 
       return res.status(200).json(linkWithTokenToActivate);
     } catch (e) {

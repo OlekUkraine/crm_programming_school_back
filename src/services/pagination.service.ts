@@ -35,7 +35,7 @@ class PaginationService {
           .limit(+limit)
           .skip(skip)
           .exec(),
-        objectModel.count(),
+        objectModel.countDocuments(),
       ]);
 
       return {

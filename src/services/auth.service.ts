@@ -54,7 +54,7 @@ class AuthService {
       await Promise.all([
         User.updateOne(
           { _id: jwtPayload._id },
-          { password: hashedPassword, is_active: true },
+          { password: hashedPassword, is_active: true, is_staff: true },
         ),
         Action.deleteMany({
           _userId: jwtPayload._id,

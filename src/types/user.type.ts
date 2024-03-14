@@ -13,6 +13,6 @@ export interface IUser extends Document {
   last_login: Date | null;
 }
 
-export type IAddUser = Pick<IUser, "name" | "surname" | "email" | "password">;
+export type IAddUser = Pick<IUser, "name" | "surname" | "email">;
 export type IUserActivate = Pick<IUser, "_id" | "email">;
 export type IRegisterUser = Pick<IUser, "password">;
