@@ -1,15 +1,11 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 
 import { ApiError } from "../errors";
 import { commentService } from "../services";
-import { IComment } from "../types/comment.type";
+import { IComment } from "../types";
 
 class CommentController {
-  public async create(
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ): Promise<Response<string>> {
+  public async create(req: Request, res: Response): Promise<Response<string>> {
     try {
       const comment = await commentService.create(req.body);
 
@@ -30,7 +26,6 @@ class CommentController {
   public async getById(
     req: Request,
     res: Response,
-    next: NextFunction,
   ): Promise<Response<IComment>> {
     try {
       const comment = await commentService.getById(req.params.commentId);
@@ -52,7 +47,6 @@ class CommentController {
   public async getAll(
     req: Request,
     res: Response,
-    next: NextFunction,
   ): Promise<Response<IComment>> {
     try {
       const comments = await commentService.getAll();

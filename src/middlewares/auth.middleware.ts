@@ -95,8 +95,6 @@ class AuthMiddleware {
 
         const tokenFromDB = await Action.findOne({ actionToken });
 
-        console.log(" tokenFromDB > > > > > ", tokenFromDB);
-
         if (!tokenFromDB) {
           throw new ApiError("Token is invalid", 400);
         }

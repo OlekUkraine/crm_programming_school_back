@@ -6,10 +6,7 @@ import { ITokenPair, ITokenPayload, IUser } from "../types";
 class AuthController {
   public async activate(req: Request, res: Response): Promise<Response<void>> {
     try {
-      console.log("activate start >>>>");
       const { jwtPayload } = req.res.locals;
-
-      console.log("jwtPayload >>> ", jwtPayload);
 
       await authService.activate(req.body, jwtPayload);
 

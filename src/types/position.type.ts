@@ -1,4 +1,4 @@
-import { EPosition } from "../enums/position.enum";
+import { EPosition } from "../enums";
 
 export interface IPosition {
   position: EPosition;

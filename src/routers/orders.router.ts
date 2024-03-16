@@ -1,7 +1,6 @@
 import { Router } from "express";
 
-import { orderController } from "../controllers";
-import { excelController } from "../controllers/excel.controller";
+import { excelController, orderController } from "../controllers";
 import { authMiddleware, commonMiddleware } from "../middlewares";
 
 const router = Router();

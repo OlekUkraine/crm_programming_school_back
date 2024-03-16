@@ -1,15 +1,11 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 
 import { ApiError } from "../errors";
 import { groupService } from "../services";
-import { IGroup } from "../types/group.type";
+import { IGroup } from "../types";
 
 class GroupController {
-  public async create(
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ): Promise<Response<IGroup>> {
+  public async create(req: Request, res: Response): Promise<Response<IGroup>> {
     try {
       const group = await groupService.create(req.body);
 
@@ -27,11 +23,7 @@ class GroupController {
     }
   }
 
-  public async getById(
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ): Promise<Response<IGroup>> {
+  public async getById(req: Request, res: Response): Promise<Response<IGroup>> {
     try {
       const group = await groupService.getById(req.params.groupId);
 
@@ -52,7 +44,6 @@ class GroupController {
   public async getAll(
     req: Request,
     res: Response,
-    next: NextFunction,
   ): Promise<Response<IGroup[]>> {
     try {
       const groups = await groupService.getAll();

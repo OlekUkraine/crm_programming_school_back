@@ -1,12 +1,12 @@
 import { Router } from "express";
 
-import { groupController } from "../controllers/group.controller";
+import { groupController } from "../controllers";
 import {
   authMiddleware,
   commonMiddleware,
   userMiddleware,
 } from "../middlewares";
-import { GroupValidator } from "../validators/group.validator";
+import { GroupValidator } from "../validators";
 
 const router = Router();
 

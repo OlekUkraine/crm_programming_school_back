@@ -1,6 +1,6 @@
 import { ApiError } from "../errors";
-import { Comment } from "../models/Comment.model";
-import { IAddComment, IComment } from "../types/comment.type";
+import { Comment } from "../models";
+import { IAddComment, IComment } from "../types";
 
 class CommentService {
   public async create(data: IAddComment): Promise<IComment> {

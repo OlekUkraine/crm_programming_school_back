@@ -55,15 +55,8 @@ class TokenService {
           break;
       }
 
-      console.log("secret >>>>>>>>", secret);
-
-      const verifyToken = jwt.verify(token, secret) as ITokenPayload;
-
-      console.log("secret >>>>>>>>", verifyToken);
-
-      return verifyToken;
+      return jwt.verify(token, secret) as ITokenPayload;
     } catch (e) {
-      console.dir(e);
       throw new ApiError("Token not valid", 401);
     }
   }

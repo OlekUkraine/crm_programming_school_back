@@ -4,8 +4,7 @@ import { Model } from "mongoose";
 import { EObjectType } from "../enums";
 import { ApiError } from "../errors";
 import { Order, User } from "../models";
-import { IPagination, IQuery } from "../types";
-import { CustomSessionData } from "../types/session.type";
+import { CustomSessionData, IPagination, IQuery } from "../types";
 
 class PaginationService {
   public async addPaginationForList<T>(

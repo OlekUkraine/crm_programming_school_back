@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 
 import { ApiError } from "../errors";
-import { Group } from "../models/Group.model";
-import { IGroup } from "../types/group.type";
+import { Group } from "../models";
+import { IGroup } from "../types";
 
 class GroupMiddleware {
   public findOrCreate(field: keyof IGroup) {

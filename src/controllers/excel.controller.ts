@@ -1,14 +1,12 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 
 import { ApiError } from "../errors";
-import { orderService } from "../services";
-import { excelService } from "../services/excel.service";
+import { excelService, orderService } from "../services";
 
 class ExcelController {
   public async createExcelFile(
     req: Request,
     res: Response,
-    next: NextFunction,
   ): Promise<Response<void>> {
     try {
       const orders = await orderService.findAllWithPagination(req);

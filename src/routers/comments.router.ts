@@ -1,12 +1,12 @@
 import { Router } from "express";
 
-import { commentController } from "../controllers/comment.controller";
+import { commentController } from "../controllers";
 import {
   authMiddleware,
   commonMiddleware,
   userMiddleware,
 } from "../middlewares";
-import { CommentValidator } from "../validators/comment.validator";
+import { CommentValidator } from "../validators";
 
 const router = Router();
 

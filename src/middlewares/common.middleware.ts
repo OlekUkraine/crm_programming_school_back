@@ -34,9 +34,6 @@ class CommonMiddleware {
       try {
         const { error, value } = validator.validate(req.body);
 
-        console.log("is body valid >>>", value);
-        console.log("is body valid error >>>", error);
-
         if (error) {
           throw new ApiError(error.message, 400);
         }
