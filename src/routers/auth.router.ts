@@ -20,7 +20,7 @@ router.post(
 );
 
 router.post(
-  "/activate/:token",
+  "/activate",
   commonMiddleware.isBodyValid(UserValidator.register),
   authMiddleware.checkActionToken(EActionTokenTypes.Activate),
   authController.activate,

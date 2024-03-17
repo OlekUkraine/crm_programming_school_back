@@ -82,7 +82,7 @@ class AuthMiddleware {
       next: NextFunction,
     ): Promise<void> => {
       try {
-        const actionToken = req.params.token;
+        const actionToken = req.get("Authorization");
 
         if (!actionToken) {
           throw new ApiError("Token is not provided", 400);
