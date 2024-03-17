@@ -61,7 +61,8 @@
 									"// pm.environment.set(\"accessToken\", jsonBody.accessToken);",
 									"// pm.environment.set(\"refreshToken\", jsonBody.refreshToken);"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -266,7 +267,8 @@
 								"exec": [
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -281,7 +283,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"valera1\",\n    \"surname\": \"valeraaminichy1\",\n    \"email\": \"valerus1@gmail.com\"\n}",
+							"raw": "{\n    \"name\": \"kolya\",\n    \"surname\": \"kolyan\",\n    \"email\": \"kolya@gmail.com\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -298,15 +300,22 @@
 					"response": []
 				},
 				{
-					"name": "Activate",
+					"name": "Get activation-token",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"const url = JSON.parse(responseBody);",
+									"",
+									"const parts = url.split(\"/\");",
+									"",
+									"const actionToken = parts[parts.length - 1];",
+									"",
+									"pm.environment.set(\"actionToken\", actionToken);"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -332,12 +341,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API}}users/650f3226c9e06d8374e6abda/activation-token",
+							"raw": "{{API}}users/65f716ad1416d8e47acac108/activation-token",
 							"host": [
 								"{{API}}users"
 							],
 							"path": [
-								"650f3226c9e06d8374e6abda",
+								"65f716ad1416d8e47acac108",
 								"activation-token"
 							]
 						}
@@ -353,7 +362,8 @@
 								"exec": [
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -379,12 +389,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API}}users/6503460358ca068e12c0dd75",
+							"raw": "{{API}}users/65eef6fa4c0f6d4caf1a96c9",
 							"host": [
 								"{{API}}users"
 							],
 							"path": [
-								"6503460358ca068e12c0dd75"
+								"65eef6fa4c0f6d4caf1a96c9"
 							]
 						}
 					},
@@ -442,12 +452,13 @@
 								"exec": [
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
 					"request": {
-						"method": "POST",
+						"method": "PUT",
 						"header": [
 							{
 								"key": "Authorization",
@@ -465,12 +476,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API}}users/6503460358ca068e12c0dd75/ban",
+							"raw": "{{API}}users/65f29a1f5a55a2308cb491b9/ban",
 							"host": [
 								"{{API}}users"
 							],
 							"path": [
-								"6503460358ca068e12c0dd75",
+								"65f29a1f5a55a2308cb491b9",
 								"ban"
 							]
 						}
@@ -486,12 +497,13 @@
 								"exec": [
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
 					"request": {
-						"method": "POST",
+						"method": "PUT",
 						"header": [
 							{
 								"key": "Authorization",
@@ -509,12 +521,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API}}users/6503460358ca068e12c0dd75/unban",
+							"raw": "{{API}}users/65f29a1f5a55a2308cb491b9/unban",
 							"host": [
 								"{{API}}users"
 							],
 							"path": [
-								"6503460358ca068e12c0dd75",
+								"65f29a1f5a55a2308cb491b9",
 								"unban"
 							]
 						}
@@ -738,7 +750,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"groupName\": \"second\",\n    \"orderId\": \"65c0e083ffd8713152800416\"\n}",
+							"raw": "{\n    \"groupName\": \"new group\",\n    \"orderId\": \"651183b613bb1664c7c05f6a\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
