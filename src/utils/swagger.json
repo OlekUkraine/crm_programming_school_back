@@ -56,7 +56,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Return pair tokens",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/PairToken"
             }
@@ -92,6 +92,65 @@
             "schema": {
               "$ref": "#/definitions/PairToken"
             }
+          }
+        }
+      }
+    },
+    "/auth/forgot-token": {
+      "post": {
+        "tags": ["auth"],
+        "summary": "Get forgot-password action-token.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/forgot-password"
+            }
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/authActivate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return link with action-token",
+            "schema": {
+              "$ref": "#/definitions/activate-link"
+            }
+          }
+        }
+      }
+    },
+    "/auth/forgot": {
+      "put": {
+        "tags": ["auth"],
+        "summary": "Set new password.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "use action token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/authActivate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
           }
         }
       }
@@ -1030,6 +1089,14 @@
       "type": "object",
       "properties": {
         "linkWithToken": {
+          "type": "string"
+        }
+      }
+    },
+    "forgot-password": {
+      "type": "object",
+      "properties": {
+        "email": {
           "type": "string"
         }
       }

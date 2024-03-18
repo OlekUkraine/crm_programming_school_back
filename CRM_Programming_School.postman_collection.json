@@ -143,6 +143,101 @@
 					"response": []
 				},
 				{
+					"name": "get-forgot-password-token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const url = JSON.parse(responseBody);",
+									"",
+									"const parts = url.split(\"/\");",
+									"",
+									"const actionToken = parts[parts.length - 1];",
+									"",
+									"pm.environment.set(\"actionToken\", actionToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"kolya@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}auth/forgot-token",
+							"host": [
+								"{{API}}auth"
+							],
+							"path": [
+								"forgot-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forgot-password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{actionToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"2Qwerty@\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}auth/forgot",
+							"host": [
+								"{{API}}auth"
+							],
+							"path": [
+								"forgot"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get my data",
 					"event": [
 						{

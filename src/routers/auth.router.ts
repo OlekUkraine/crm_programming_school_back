@@ -7,7 +7,7 @@ import {
   commonMiddleware,
   userMiddleware,
 } from "../middlewares";
-import { ICredentials } from "../types";
+import { ICredentials, IUser } from "../types";
 import { UserValidator } from "../validators";
 
 const router = Router();
@@ -30,6 +30,20 @@ router.post(
   "/refresh",
   authMiddleware.checkRefreshToken,
   authController.refresh,
+);
+
+router.post(
+  "/forgot-token",
+  commonMiddleware.isBodyValid(UserValidator.forgotPassword),
+  userMiddleware.isExist<IUser>("email"),
+  authController.forgotPassword,
+);
+
+router.put(
+  "/forgot",
+  commonMiddleware.isBodyValid(UserValidator.setForgotPassword),
+  authMiddleware.checkActionToken(EActionTokenTypes.Forgot),
+  authController.setForgotPassword,
 );
 
 router.get("/me", authMiddleware.checkAccessToken, authController.myData);

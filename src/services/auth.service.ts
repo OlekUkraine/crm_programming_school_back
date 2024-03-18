@@ -1,3 +1,6 @@
+import { Types } from "mongoose";
+
+import { configs } from "../configs";
 import { EActionTokenTypes } from "../enums";
 import { ApiError } from "../errors";
 import { Action, Token, User } from "../models";
@@ -79,6 +82,48 @@ class AuthService {
       ]);
 
       return { ...tokensPair };
+    } catch (e) {
+      throw new ApiError(e.message, e.status);
+    }
+  }
+
+  public async forgotPassword(userId: Types.ObjectId): Promise<string> {
+    try {
+      const user = await User.findById(userId);
+
+      if (!user) {
+        throw new ApiError("No user found with this id", 400);
+      }
+
+      const actionToken = tokenService.generationActionToken(
+        { _id: userId, email: user.email },
+        EActionTokenTypes.Forgot,
+      );
+
+      await Action.create({
+        _userId: userId,
+        actionToken,
+        tokenType: EActionTokenTypes.Forgot,
+      });
+
+      return `${configs.FRONT_URL}/${configs.FRONT_PORT}/${actionToken}`;
+    } catch (e) {
+      throw new ApiError(e.message, e.status);
+    }
+  }
+
+  public async setForgotPassword(
+    password: string,
+    userId: Types.ObjectId,
+    actionToken: string,
+  ): Promise<void> {
+    const hashedPassword = await passwordService.hash(password);
+
+    await Promise.all([
+      User.updateOne({ _id: userId }, { password: hashedPassword }),
+      Action.deleteOne({ actionToken }),
+    ]);
+    try {
     } catch (e) {
       throw new ApiError(e.message, e.status);
     }
