@@ -16,6 +16,7 @@ router.post(
   "/login",
   commonMiddleware.isBodyValid(UserValidator.login),
   userMiddleware.isExist<ICredentials>("email"),
+  userMiddleware.isActive,
   authController.login,
 );
 
