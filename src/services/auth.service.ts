@@ -34,7 +34,10 @@ class AuthService {
         email: user.email,
       });
 
-      await User.updateOne({ last_login: new Date().toISOString() });
+      await User.updateOne(
+        { _id: user._id },
+        { last_login: new Date().toISOString() },
+      );
 
       await Token.create({
         ...tokensPair,
