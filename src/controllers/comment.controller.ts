@@ -7,7 +7,7 @@ import { IComment } from "../types";
 class CommentController {
   public async create(req: Request, res: Response): Promise<Response<string>> {
     try {
-      const comment = await commentService.create(req.body);
+      const comment = await commentService.create(req.body, req.params.orderId);
 
       return res.status(200).json(comment._id);
     } catch (e) {

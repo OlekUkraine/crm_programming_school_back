@@ -53,6 +53,31 @@ class CommonMiddleware {
       }
     };
   }
+
+  public isQueryValid(validator: ObjectSchema) {
+    return (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const { error, value } = validator.validate(req.query);
+
+        if (error) {
+          throw new ApiError(error.message, 400);
+        }
+
+        req.query = value;
+        next();
+      } catch (e) {
+        if (e instanceof ApiError) {
+          res
+            .status(e.status)
+            .json({ error: { message: e.message, status: e.status } });
+        } else {
+          res
+            .status(500)
+            .json({ error: { message: "Internal Server Error", status: 500 } });
+        }
+      }
+    };
+  }
 }
 
 export const commonMiddleware = new CommonMiddleware();

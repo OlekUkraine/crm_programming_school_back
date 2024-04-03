@@ -2,10 +2,16 @@ import { Router } from "express";
 
 import { excelController, orderController } from "../controllers";
 import { authMiddleware, commonMiddleware } from "../middlewares";
+import { OrderValidator, PaginationValidator } from "../validators";
 
 const router = Router();
 
-router.get("/", authMiddleware.checkAccessToken, orderController.getAll);
+router.get(
+  "/",
+  authMiddleware.checkAccessToken,
+  commonMiddleware.isQueryValid(PaginationValidator.getAll),
+  orderController.getAll,
+);
 
 router.get(
   "/excel",
@@ -15,15 +21,16 @@ router.get(
 
 router.get(
   "/:orderId",
-  commonMiddleware.isIdValid("orderId"),
   authMiddleware.checkAccessToken,
+  commonMiddleware.isIdValid("orderId"),
   orderController.findById,
 );
 
-router.put(
+router.patch(
   "/:orderId",
-  commonMiddleware.isIdValid("orderId"),
   authMiddleware.checkAccessToken,
+  commonMiddleware.isIdValid("orderId"),
+  commonMiddleware.isBodyValid(OrderValidator.update),
   orderController.updateById,
 );
 

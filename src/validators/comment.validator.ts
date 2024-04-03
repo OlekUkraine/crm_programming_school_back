@@ -6,6 +6,5 @@ export class CommentValidator {
 
   static create = Joi.object({
     comment: this.comment.required(),
-    orderId: this.ordersId.required(),
   });
 }

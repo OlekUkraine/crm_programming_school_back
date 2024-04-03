@@ -40,7 +40,7 @@ router.post(
   authController.forgotPassword,
 );
 
-router.put(
+router.patch(
   "/forgot",
   commonMiddleware.isBodyValid(UserValidator.setForgotPassword),
   authMiddleware.checkActionToken(EActionTokenTypes.Forgot),

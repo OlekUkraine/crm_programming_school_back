@@ -1,19 +1,20 @@
 import { ApiError } from "../errors";
 import { Comment } from "../models";
-import { IAddComment, IComment } from "../types";
+import { IComment } from "../types";
 
 class CommentService {
-  public async create(data: IAddComment): Promise<IComment> {
+  public async create(
+    { comment }: IComment,
+    orderId: string,
+  ): Promise<IComment> {
     try {
-      const { comment, orderId } = data;
-
       if (!comment || !orderId) {
         throw new ApiError("Comments and orderId must be filled", 400);
       }
 
       return await Comment.create({
-        comment: data.comment,
-        orderId: data.orderId,
+        comment,
+        orderId,
       });
     } catch (e) {
       throw new ApiError(e.message, e.status);

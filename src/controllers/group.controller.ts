@@ -61,6 +61,27 @@ class GroupController {
       }
     }
   }
+
+  public async addUser(req: Request, res: Response): Promise<Response<IGroup>> {
+    try {
+      const group = await groupService.addUser(
+        req.params.groupId,
+        req.body.orderId,
+      );
+
+      return res.status(200).json(group);
+    } catch (e) {
+      if (e instanceof ApiError) {
+        res
+          .status(e.status)
+          .json({ error: { message: e.message, status: e.status } });
+      } else {
+        res
+          .status(500)
+          .json({ error: { message: "Internal Server Error", status: 500 } });
+      }
+    }
+  }
 }
 
 export const groupController = new GroupController();

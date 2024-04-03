@@ -42,15 +42,16 @@ router.get(
   userController.findById,
 );
 
-router.put(
+router.patch(
   "/:userId",
   commonMiddleware.isIdValid("userId"),
+  commonMiddleware.isBodyValid(UserValidator.update),
   authMiddleware.checkAccessToken,
   userMiddleware.isSuperuser,
   userController.updateById,
 );
 
-router.put(
+router.patch(
   "/:userId/ban",
   commonMiddleware.isIdValid("userId"),
   authMiddleware.checkAccessToken,
@@ -58,7 +59,7 @@ router.put(
   userController.ban,
 );
 
-router.put(
+router.patch(
   "/:userId/unban",
   commonMiddleware.isIdValid("userId"),
   authMiddleware.checkAccessToken,

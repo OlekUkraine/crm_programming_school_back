@@ -12,8 +12,8 @@ const router = Router();
 
 router.post(
   "/",
-  commonMiddleware.isBodyValid(GroupValidator.create),
   authMiddleware.checkAccessToken,
+  commonMiddleware.isBodyValid(GroupValidator.create),
   userMiddleware.isActive,
   groupController.create,
 );
@@ -27,18 +27,19 @@ router.get(
 
 router.get(
   "/:groupId",
-  commonMiddleware.isIdValid("groupId"),
   authMiddleware.checkAccessToken,
+  commonMiddleware.isIdValid("groupId"),
   userMiddleware.isActive,
   groupController.getById,
 );
-//
-// router.delete(
-//   "/:groupId",
-//   commonMiddleware.isIdValid("groupId"),
-//   authMiddleware.checkAccessToken,
-//   userMiddleware.isSuperuser,
-//   groupController.delete,
-// );
+
+router.patch(
+  "/:groupId",
+  authMiddleware.checkAccessToken,
+  commonMiddleware.isIdValid("groupId"),
+  commonMiddleware.isBodyValid(GroupValidator.update),
+  userMiddleware.isActive,
+  groupController.addUser,
+);
 
 export const groupsRouter = router;

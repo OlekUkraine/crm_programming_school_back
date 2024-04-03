@@ -30,6 +30,7 @@ const orderSchema = new Schema(
     email: {
       type: String,
       trim: true,
+      lowercase: true,
       default: null,
     },
     msg: {

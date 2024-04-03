@@ -11,8 +11,9 @@ import { CommentValidator } from "../validators";
 const router = Router();
 
 router.post(
-  "/",
+  "/:orderId",
   commonMiddleware.isBodyValid(CommentValidator.create),
+  commonMiddleware.isIdValid("orderId"),
   authMiddleware.checkAccessToken,
   userMiddleware.isActive,
   commentController.create,

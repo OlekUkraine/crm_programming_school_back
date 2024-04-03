@@ -531,7 +531,7 @@
       }
     },
     "/users/{userId}/": {
-      "put": {
+      "patch": {
         "tags": ["users"],
         "summary": "Update one user by id",
         "operationId": "updateUser",
@@ -573,9 +573,9 @@
       }
     },
     "/users/{userId}/ban": {
-      "get": {
+      "patch": {
         "tags": ["users"],
-        "summary": "Get one user by id",
+        "summary": "Ban to the user by id",
         "operationId": "getUser",
         "parameters": [
           {
@@ -590,7 +590,7 @@
           {
             "name": "userId",
             "in": "path",
-            "description": "ID of user to return",
+            "description": "Which user Id to ban",
             "required": true,
             "schema": {
               "type": "string"
@@ -608,9 +608,9 @@
       }
     },
     "/users/{userId}/unban": {
-      "get": {
+      "patch": {
         "tags": ["users"],
-        "summary": "Get one user by id",
+        "summary": "Unban to the user by id",
         "operationId": "getUser",
         "parameters": [
           {
@@ -625,7 +625,7 @@
           {
             "name": "userId",
             "in": "path",
-            "description": "ID of user to return",
+            "description": "Which user Id to unban",
             "required": true,
             "schema": {
               "type": "string"
@@ -719,6 +719,41 @@
             "name": "groupId",
             "in": "path",
             "description": "ID of group to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the group by id.",
+            "schema": {
+              "$ref": "#/definitions/Group"
+            }
+          }
+        }
+      }
+    },
+    "/groups/{groupId}/": {
+      "patch": {
+        "tags": ["groups"],
+        "summary": "Add a order to a group",
+        "operationId": "getGroup",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "description": "Access token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "ID of group to patch",
             "required": true,
             "schema": {
               "type": "string"

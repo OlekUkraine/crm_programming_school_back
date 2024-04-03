@@ -99,9 +99,8 @@ class UsersMiddleware {
     next: NextFunction,
   ): Promise<void> {
     try {
-      const { _id: userId } = req.res.locals.user;
-
-      const user = await User.findOne({ _id: userId });
+      const { _id } = req.res.locals.tokenPayload || req.res.locals.user;
+      const user = await User.findOne({ _id });
 
       if (!user.is_active && !user.is_staff) {
         throw new ApiError("You do not have access!", 403);
