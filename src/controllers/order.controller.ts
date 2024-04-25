@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 
 import { ApiError } from "../errors";
 import { orderService } from "../services";
@@ -8,7 +8,6 @@ class OrderController {
   public async getAll(
     req: Request,
     res: Response,
-    next: NextFunction,
   ): Promise<Response<IPagination<IOrder[]>>> {
     try {
       const orders = await orderService.findAllWithPagination(req);
@@ -30,7 +29,6 @@ class OrderController {
   public async findById(
     req: Request,
     res: Response,
-    next: NextFunction,
   ): Promise<Response<IOrder>> {
     try {
       const orders = await orderService.findById(req.params.orderId);
@@ -56,7 +54,6 @@ class OrderController {
   public async updateById(
     req: Request,
     res: Response,
-    next: NextFunction,
   ): Promise<Response<IOrder>> {
     try {
       const { orderId } = req.params;

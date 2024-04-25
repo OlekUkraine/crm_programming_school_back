@@ -49,7 +49,7 @@ class CommentController {
     res: Response,
   ): Promise<Response<IComment>> {
     try {
-      const comments = await commentService.getAll();
+      const comments = await commentService.findAllWithPagination(req);
 
       return res.status(200).json(comments);
     } catch (e) {

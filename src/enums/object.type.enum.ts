@@ -1,4 +1,6 @@
 export enum EObjectType {
-  Order = "order",
-  User = "user",
+  Order,
+  User,
+  Comment,
+  Group,
 }

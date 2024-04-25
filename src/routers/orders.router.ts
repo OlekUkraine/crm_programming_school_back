@@ -2,14 +2,14 @@ import { Router } from "express";
 
 import { excelController, orderController } from "../controllers";
 import { authMiddleware, commonMiddleware } from "../middlewares";
-import { OrderValidator, PaginationValidator } from "../validators";
+import { OrderValidator } from "../validators";
 
 const router = Router();
 
 router.get(
   "/",
   authMiddleware.checkAccessToken,
-  commonMiddleware.isQueryValid(PaginationValidator.getAll),
+  commonMiddleware.isQueryValid(OrderValidator.getAll),
   orderController.getAll,
 );
 

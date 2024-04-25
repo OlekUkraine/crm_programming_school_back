@@ -1,6 +1,10 @@
+import { Request } from "express";
+
+import { EObjectType } from "../enums";
 import { ApiError } from "../errors";
 import { Comment } from "../models";
-import { IComment } from "../types";
+import { IComment, IPagination, IQuery } from "../types";
+import { paginationService } from "./pagination.service";
 
 class CommentService {
   public async create(
@@ -21,12 +25,16 @@ class CommentService {
     }
   }
 
-  public async getAll(): Promise<IComment[]> {
-    try {
-      return await Comment.find();
-    } catch (e) {
-      throw new ApiError(e.message, e.status);
-    }
+  public async findAllWithPagination(
+    req: Request,
+  ): Promise<IPagination<IComment>> {
+    const { query } = req;
+
+    return await paginationService.addPaginationForList<IComment>(
+      query as IQuery,
+      EObjectType.Comment,
+      req,
+    );
   }
 
   public async getById(commentId: string): Promise<IComment> {

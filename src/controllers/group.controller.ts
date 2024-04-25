@@ -46,7 +46,7 @@ class GroupController {
     res: Response,
   ): Promise<Response<IGroup[]>> {
     try {
-      const groups = await groupService.getAll();
+      const groups = await groupService.findAllWithPagination(req);
 
       return res.status(200).json(groups);
     } catch (e) {

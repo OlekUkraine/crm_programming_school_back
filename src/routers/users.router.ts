@@ -30,6 +30,7 @@ router.get(
 router.get(
   "/",
   authMiddleware.checkAccessToken,
+  commonMiddleware.isQueryValid(UserValidator.getAll),
   userMiddleware.isSuperuser,
   userController.getAll,
 );

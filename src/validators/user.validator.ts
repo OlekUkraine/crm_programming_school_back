@@ -1,8 +1,14 @@
 import Joi from "joi";
 
 import { regexConstants } from "../constants";
+import { ESortOrder } from "../enums";
 
 export class UserValidator {
+  static page = Joi.number();
+  static limitPage = Joi.number().max(100);
+  static sortedBy = Joi.valid(...Object.values(ESortOrder));
+  static searchObject = Joi.string();
+
   static firstName = Joi.string().min(3).max(30).trim();
   static surname = Joi.string().min(3).max(30).trim();
   static email = Joi.string().lowercase().regex(regexConstants.EMAIL).trim();
@@ -44,5 +50,13 @@ export class UserValidator {
 
   static setForgotPassword = Joi.object({
     password: this.password.required(),
+  });
+
+  static getAll = Joi.object({
+    page: this.page,
+    limitPage: this.limitPage,
+    sortedBy: this.sortedBy,
+    searchObject: this.searchObject,
+    email: this.email,
   });
 }

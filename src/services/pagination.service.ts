@@ -3,7 +3,7 @@ import { Model } from "mongoose";
 
 import { EObjectType } from "../enums";
 import { ApiError } from "../errors";
-import { Order, User } from "../models";
+import { Comment, Group, Order, User } from "../models";
 import { CustomSessionData, IPagination, IQuery } from "../types";
 
 class PaginationService {
@@ -21,9 +21,22 @@ class PaginationService {
         return this.toggleSortDirection(objectOfSort, keyName, req);
       };
 
-      const objectModel: Model<any> =
-        objectType === EObjectType.Order ? Order : User;
+      let objectModel: Model<any>;
 
+      switch (objectType) {
+        case EObjectType.Order:
+          objectModel = Order;
+          break;
+        case EObjectType.User:
+          objectModel = User;
+          break;
+        case EObjectType.Comment:
+          objectModel = Comment;
+          break;
+        case EObjectType.Group:
+          objectModel = Group;
+          break;
+      }
       const [data, itemCount] = await Promise.all([
         objectModel
           .find({ ...searchObject })

@@ -1,6 +1,10 @@
+import { Request } from "express";
+
+import { EObjectType } from "../enums";
 import { ApiError } from "../errors";
 import { Group } from "../models";
-import { IAddGroup, IGroup } from "../types";
+import { IAddGroup, IGroup, IPagination, IQuery } from "../types";
+import { paginationService } from "./pagination.service";
 
 class GroupService {
   public async create({ groupName }: IAddGroup): Promise<IGroup> {
@@ -17,12 +21,16 @@ class GroupService {
     }
   }
 
-  public async getAll(): Promise<IGroup[]> {
-    try {
-      return await Group.find();
-    } catch (e) {
-      throw new ApiError(e.message, e.status);
-    }
+  public async findAllWithPagination(
+    req: Request,
+  ): Promise<IPagination<IGroup>> {
+    const { query } = req;
+
+    return await paginationService.addPaginationForList<IGroup>(
+      query as IQuery,
+      EObjectType.Group,
+      req,
+    );
   }
 
   public async getById(groupId: string): Promise<IGroup> {

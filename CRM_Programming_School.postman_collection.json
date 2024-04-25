@@ -21,7 +21,8 @@
 									"pm.environment.set(\"accessToken\", jsonBody.accessToken);",
 									"pm.environment.set(\"refreshToken\", jsonBody.refreshToken);"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -208,7 +209,7 @@
 						}
 					],
 					"request": {
-						"method": "PUT",
+						"method": "PATCH",
 						"header": [
 							{
 								"key": "Authorization",
@@ -378,7 +379,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"kolya\",\n    \"surname\": \"kolyan\",\n    \"email\": \"kolya@gmail.com\"\n}",
+							"raw": "{\n    \"name\": \"masha\",\n    \"surname\": \"masha\",\n    \"email\": \"masha@gmail.com\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -436,12 +437,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API}}users/65f716ad1416d8e47acac108/activation-token",
+							"raw": "{{API}}users/65f6c290258fbc55080a5c1a/activation-token",
 							"host": [
 								"{{API}}users"
 							],
 							"path": [
-								"65f716ad1416d8e47acac108",
+								"65f6c290258fbc55080a5c1a",
 								"activation-token"
 							]
 						}
@@ -504,12 +505,13 @@
 								"exec": [
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
 					"request": {
-						"method": "PUT",
+						"method": "PATCH",
 						"header": [
 							{
 								"key": "Authorization",
@@ -553,7 +555,7 @@
 						}
 					],
 					"request": {
-						"method": "PUT",
+						"method": "PATCH",
 						"header": [
 							{
 								"key": "Authorization",
@@ -571,12 +573,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API}}users/65f29a1f5a55a2308cb491b9/ban",
+							"raw": "{{API}}users/65fa821f643cb47f1b26344e/ban",
 							"host": [
 								"{{API}}users"
 							],
 							"path": [
-								"65f29a1f5a55a2308cb491b9",
+								"65fa821f643cb47f1b26344e",
 								"ban"
 							]
 						}
@@ -598,7 +600,7 @@
 						}
 					],
 					"request": {
-						"method": "PUT",
+						"method": "PATCH",
 						"header": [
 							{
 								"key": "Authorization",
@@ -616,12 +618,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API}}users/65f29a1f5a55a2308cb491b9/unban",
+							"raw": "{{API}}users/65fa821f643cb47f1b26344e/unban",
 							"host": [
 								"{{API}}users"
 							],
 							"path": [
-								"65f29a1f5a55a2308cb491b9",
+								"65fa821f643cb47f1b26344e",
 								"unban"
 							]
 						}
@@ -652,7 +654,7 @@
 							"query": [
 								{
 									"key": "limit",
-									"value": "30",
+									"value": "100",
 									"disabled": true
 								},
 								{
@@ -667,57 +669,57 @@
 								},
 								{
 									"key": "name",
-									"value": null,
-									"disabled": true
-								},
-								{
-									"key": "email",
-									"value": null,
-									"disabled": true
-								},
-								{
-									"key": "phone",
-									"value": null,
-									"disabled": true
-								},
-								{
-									"key": "surname",
-									"value": null,
-									"disabled": true
-								},
-								{
-									"key": "age",
 									"value": "",
 									"disabled": true
 								},
 								{
+									"key": "email",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "phone",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "surname",
+									"value": "ghjk",
+									"disabled": true
+								},
+								{
+									"key": "age",
+									"value": "4",
+									"disabled": true
+								},
+								{
 									"key": "course",
-									"value": null,
+									"value": "PCX",
 									"disabled": true
 								},
 								{
 									"key": "course_format",
-									"value": null,
+									"value": "",
 									"disabled": true
 								},
 								{
 									"key": "course_type",
-									"value": null,
+									"value": "",
 									"disabled": true
 								},
 								{
 									"key": "already_paid",
-									"value": null,
+									"value": "",
 									"disabled": true
 								},
 								{
 									"key": "status",
-									"value": null,
+									"value": "",
 									"disabled": true
 								},
 								{
 									"key": "userId",
-									"value": null,
+									"value": "",
 									"disabled": true
 								}
 							]
@@ -804,11 +806,17 @@
 				{
 					"name": "Update",
 					"request": {
-						"method": "PUT",
-						"header": [],
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\n    \"age\": \"10\",\n    \"status\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -816,12 +824,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API}}orders/651183b613bb1664c7c05d7d",
+							"raw": "{{API}}orders/651183b613bb1664c7c05d80",
 							"host": [
 								"{{API}}orders"
 							],
 							"path": [
-								"651183b613bb1664c7c05d7d"
+								"651183b613bb1664c7c05d80"
 							]
 						}
 					},
@@ -845,7 +853,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"groupName\": \"new group\",\n    \"orderId\": \"651183b613bb1664c7c05f6a\"\n}",
+							"raw": "{\n    \"groupName\": \"new group\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -888,6 +896,33 @@
 							"raw": "{{API}}groups",
 							"host": [
 								"{{API}}groups"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "sortedBy",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "orderId",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "groupName",
+									"value": null,
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -917,12 +952,44 @@
 							}
 						},
 						"url": {
-							"raw": "{{API}}groups/65c0e266a143d0f437b7010b",
+							"raw": "{{API}}groups/6605f00d14d1df9e5a043d18",
 							"host": [
 								"{{API}}groups"
 							],
 							"path": [
-								"65c0e266a143d0f437b7010b"
+								"6605f00d14d1df9e5a043d18"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add order in group",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"orderId\": \"651183b613bb1664c7c05f6c\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}groups/6605f00d14d1df9e5a043d18",
+							"host": [
+								"{{API}}groups"
+							],
+							"path": [
+								"6605f00d14d1df9e5a043d18"
 							]
 						}
 					},
@@ -946,7 +1013,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"orderId\": \"6511825e1312ea0aac3f6b35\",\n    \"comment\": \"Your comment should be here\"\n}",
+							"raw": "{\n    \"comment\": \"Your comment should be here 234\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -954,9 +1021,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API}}comments",
+							"raw": "{{API}}comments/6511825e1312ea0aac3f6b35",
 							"host": [
 								"{{API}}comments"
+							],
+							"path": [
+								"6511825e1312ea0aac3f6b35"
 							]
 						}
 					},
@@ -981,7 +1051,7 @@
 							"query": [
 								{
 									"key": "limit",
-									"value": "10",
+									"value": "",
 									"disabled": true
 								},
 								{
@@ -991,7 +1061,12 @@
 								},
 								{
 									"key": "sortedBy",
-									"value": "name",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "orderId",
+									"value": "",
 									"disabled": true
 								}
 							]
@@ -1023,12 +1098,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API}}comments/65d310933506378e27d07cb0",
+							"raw": "{{API}}comments/66070b9d8574cd4eb0709f71",
 							"host": [
 								"{{API}}comments"
 							],
 							"path": [
-								"65d310933506378e27d07cb0"
+								"66070b9d8574cd4eb0709f71"
 							],
 							"query": [
 								{

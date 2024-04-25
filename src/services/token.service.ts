@@ -3,6 +3,7 @@ import * as jwt from "jsonwebtoken";
 import { configs } from "../configs";
 import { EActionTokenTypes, ETokenType } from "../enums";
 import { ApiError } from "../errors";
+import { Token } from "../models";
 import { ITokenPair, ITokenPayload } from "../types";
 
 class TokenService {
@@ -13,6 +14,8 @@ class TokenService {
     const refreshToken = jwt.sign(payload, configs.JWT_REFRESH_SECRET, {
       expiresIn: configs.LIFETIME_REFRESH_TOKEN,
     });
+
+    this.deleteOldPairTokens(payload._id);
 
     return {
       accessToken,
@@ -78,6 +81,12 @@ class TokenService {
 
     return jwt.sign(payload, secret, {
       expiresIn: configs.LIFETIME_ACTIVATE_TOKEN,
+    });
+  }
+
+  private async deleteOldPairTokens(_userId: string): Promise<void> {
+    await Token.deleteMany({
+      _userId,
     });
   }
 }
